@@ -1,7 +1,7 @@
 # RedPenLMS
 <br>
 
- **LMS💻 + AI🤖, learning assistant platform**<br>
+**LMS💻 + AI🤖, learning assistant platform**<br>
 
 ---
 <br>
