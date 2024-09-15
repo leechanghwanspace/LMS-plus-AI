@@ -4,9 +4,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL} # 환경 변수에서 URL 가져오기
-    username: ${SPRING_DATASOURCE_USERNAME} # 환경 변수에서 사용자 이름 가져오기
-    password: ${SPRING_DATASOURCE_PASSWORD} # 환경 변수에서 비밀번호 가져오기
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     database: mysql
