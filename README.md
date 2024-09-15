@@ -1,23 +1,27 @@
 # RedPenLMS
 <br>
-🛜 LMS + AI, learning assistant platform<br>
+
+ **LMS💻 + AI🤖, learning assistant platform**<br>
 
 ---
 <br>
 
 ### **_플랫폼 기능_**
 
-**예정**
+
 - 소프트웨어학부 전용 LMS  + AI **설계**
   - 각 전공별 입학부터 졸업까지 맞춤 커리큘럼 **안내**
   - 사용자별 수강과목 관련 강의 플랫폼 **추천**
 - 주차별 학습 계획 및 성과 **확인**
 --- 
-**+ @**
+### **추가 예정 기능**
 - 교과목에 대한 강의평(후기) **제공**
 - 전공도서 **중고거래**
-- 이하 등등 ... (추가 예정)
+- Etc
 
+---
+<br>
 
-
+### ERD Diagram 설계
+![img_1.png](ERD.png)
 
