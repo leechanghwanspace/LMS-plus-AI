@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: LMS_plus
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL} # 환경 변수에서 URL 가져오기
+    username: ${SPRING_DATASOURCE_USERNAME} # 환경 변수에서 사용자 이름 가져오기
+    password: ${SPRING_DATASOURCE_PASSWORD} # 환경 변수에서 비밀번호 가져오기
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
