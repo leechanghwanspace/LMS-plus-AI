@@ -22,6 +22,15 @@
 ---
 <br>
 
+### 기술
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"><br>
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"><br>
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"/><br>
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"><br><br>
+
+---
+<br>
+
 ### ERD Diagram 설계
-![img_1.png](ERD.png)
+![img_1.png](erd.png)
 
