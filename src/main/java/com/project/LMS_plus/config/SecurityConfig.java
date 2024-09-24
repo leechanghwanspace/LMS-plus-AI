@@ -1,5 +1,6 @@
 package com.project.LMS_plus.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,7 +56,12 @@ public class SecurityConfig {
         return (request, response, exception) -> {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
+
+            // 실패 메시지 반환
             response.getWriter().write("{\"message\":\"로그인 실패\"}");
+
+            // 로그인 실패 시 401 상태 코드 반환
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         };
     }
 }
