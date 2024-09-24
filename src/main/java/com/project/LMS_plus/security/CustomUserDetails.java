@@ -1,6 +1,5 @@
 package com.project.LMS_plus.security;
 
-
 import com.project.LMS_plus.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,18 +17,17 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 사용자의 권한 정보를 반환 (여기서는 기본적으로 빈 리스트로 설정)
-        return Collections.emptyList();
+        return Collections.emptyList();  // 권한이 없는 경우 빈 리스트 반환
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getPassword();  // 데이터베이스에 저장된 비밀번호 반환
     }
 
     @Override
     public String getUsername() {
-        return user.getStudentId();  // 사용자 ID로 학번을 사용
+        return user.getStudentId();  // 학번을 사용자 이름으로 사용
     }
 
     @Override
