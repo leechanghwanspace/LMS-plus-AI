@@ -16,10 +16,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
+        // 사용자 검색
         User user = userRepository.findByStudentId(studentId)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + studentId));
+                .orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 ID입니다."));
 
-        // 비밀번호 검증 로직은 Spring Security 내부에서 처리됩니다.
         return new CustomUserDetails(user);
     }
 }
