@@ -1,5 +1,10 @@
 package com.project.LMS_plus.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class LoginForm {
 
     private String studentId;  // 학번 (로그인용 ID)
@@ -12,23 +17,6 @@ public class LoginForm {
     // 매개변수 있는 생성자
     public LoginForm(String studentId, String password) {
         this.studentId = studentId;
-        this.password = password;
-    }
-
-    // getter와 setter
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 }
