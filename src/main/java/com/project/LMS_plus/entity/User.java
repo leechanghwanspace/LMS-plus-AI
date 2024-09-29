@@ -2,44 +2,22 @@ package com.project.LMS_plus.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+
 public class User {
     @Id
     private String studentId;
     private String email;
     private String password;
     private String name;
+    private String department;       // 학과 정보
+    private String major;            // 전공
+    private String doubleMajor;      // 복수 전공
+    private Integer year;            // 학년
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
