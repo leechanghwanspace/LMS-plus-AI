@@ -49,7 +49,6 @@ public class UserService {
             doubleMajor = "기타";
         }
 
-        user.setDepartment(department);
         user.setMajor(major);
         user.setDoubleMajor(doubleMajor);
         user.setYear(year);
