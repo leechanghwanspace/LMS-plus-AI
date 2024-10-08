@@ -1,7 +1,10 @@
 package com.project.LMS_plus.service;
 
 import com.project.LMS_plus.dto.SignUpForm;
+import com.project.LMS_plus.dto.UserProfileForm;
+import com.project.LMS_plus.entity.Department;
 import com.project.LMS_plus.entity.User;
+import com.project.LMS_plus.repository.DepartmentRepository;
 import com.project.LMS_plus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +15,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,26 +39,37 @@ public class UserService {
         userRepository.save(user);  // DB에 저장
     }
 
-    public void updateUserProfile(String studentId, String department, String major, String doubleMajor, Integer year) {
+    public void updateUserProfile(String studentId, UserProfileForm form) {
+        // 사용자 조회
         User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        // 소프트웨어공학부의 경우 전공 선택이 필요
-        if (department.equals("소프트웨어공학부")) {
-            if (major == null || (!major.equals("게임소프트웨어전공") && !major.equals("인공지능전공") && !major.equals("정보보호학전공"))) {
-                throw new IllegalArgumentException("소프트웨어공학부에서는 게임소프트웨어전공, 인공지능전공, 정보보호학전공 중 하나를 선택해야 합니다.");
+        // 학부 조회
+        Department department = departmentRepository.findById(form.getDepartmentId())
+                .orElseThrow(() -> new IllegalArgumentException("학부가 존재하지 않습니다."));
+
+        // 소프트웨어공학부의 경우 전공 선택 검증
+        if (department.getId() == 1) { // departmentId가 1인 경우를 소프트웨어공학부로 가정
+            if (form.getMajor() == null || (!form.getMajor().equals("게임소프트웨어전공")
+                    && !form.getMajor().equals("스마트아이티전공")
+                    && !form.getMajor().equals("정보보호학전공"))) {
+                throw new IllegalArgumentException("소프트웨어공학부에서는 게임소프트웨어전공, 스마트아이티전공, 정보보호학전공 중 하나를 선택해야 합니다.");
             }
         }
 
-        // 복수 전공일 시 doubleMajor 값을 "기타"로 고정
+        // 복수 전공이 있을 경우 '기타'로 설정
+        String doubleMajor = form.getDoubleMajor();
         if (doubleMajor != null && !doubleMajor.equals("없음")) {
             doubleMajor = "기타";
         }
 
-        user.setMajor(major);
+        // 사용자 정보 업데이트
+        user.setDepartment(department);
+        user.setMajor(form.getMajor());
         user.setDoubleMajor(doubleMajor);
-        user.setYear(year);
+        user.setYear(form.getYear());
 
+        // 변경된 사용자 정보 저장
         userRepository.save(user);
     }
 

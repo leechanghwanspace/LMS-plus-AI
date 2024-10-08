@@ -4,13 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter
-
 public class User {
+
     @Id
     private String studentId;
 
@@ -23,15 +21,32 @@ public class User {
     @Column
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "major_department_id")  // 외래 키로 사용
-    private Department major;                  // 주 전공
-
-    @OneToOne
-    @JoinColumn(name = "double_major_department_id")  // 외래 키로 사용
-    private Department doubleMajor;                    // 복수 전공
+    @Column
+    private String major; // 주 전공
 
     @Column
-    private Integer year;            // 학년
+    private String doubleMajor; // 복수 전공
 
+    @Column
+    private Integer year; // 학년
+
+    // Department와의 1:1 관계 설정
+    @OneToOne
+    @JoinColumn(name = "department_id")  // User 테이블에 외래 키로 추가됨
+    private Department department;
+
+    // 기본 생성자
+    public User() {}
+
+    // 생성자
+    public User(String studentId, String email, String password, String name, String major, String doubleMajor, Integer year, Department department) {
+        this.studentId = studentId;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.major = major;
+        this.doubleMajor = doubleMajor;
+        this.year = year;
+        this.department = department;
+    }
 }
