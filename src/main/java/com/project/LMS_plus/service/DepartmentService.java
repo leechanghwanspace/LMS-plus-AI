@@ -33,6 +33,7 @@ public class DepartmentService {
         return departmentRepository.findById(departmentId);
     }
 
+
     // Update (부서 정보 수정)
     public Department updateDepartment(Long departmentId, DepartmentDto departmentDto) {
         // 먼저 기존 부서를 조회
