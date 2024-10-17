@@ -1,7 +1,9 @@
 package com.project.LMS_plus.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,9 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Board {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -32,6 +36,7 @@ public class Board {
 
     @Column
     private LocalDateTime updatedTime;
+
 
     @PrePersist
     protected void onCreate() {

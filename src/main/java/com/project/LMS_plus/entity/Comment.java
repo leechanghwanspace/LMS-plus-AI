@@ -1,5 +1,6 @@
 package com.project.LMS_plus.entity;
 
+import com.project.LMS_plus.dto.CommentDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // ID 자동 생성 전략 설정
     private Long id;
 
     @Column(columnDefinition = "TEXT", nullable = false)

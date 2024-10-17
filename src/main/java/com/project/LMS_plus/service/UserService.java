@@ -9,6 +9,7 @@ import com.project.LMS_plus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -23,6 +24,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     // 기존 회원가입 로직
+    @Transactional
     public void registerUser(SignUpForm form) {
 
         // 비밀번호와 비밀번호 확인 값이 일치하는지 확인
@@ -39,6 +41,7 @@ public class UserService {
         userRepository.save(user);  // DB에 저장
     }
 
+    @Transactional
     public void updateUserProfile(String studentId, UserProfileForm form) {
         // 사용자 조회
         User user = userRepository.findByStudentId(studentId)
@@ -71,6 +74,27 @@ public class UserService {
 
         // 변경된 사용자 정보 저장
         userRepository.save(user);
+    }
+
+    @Transactional
+    public String modifyName(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+
+        // 사용자의 이름 가져오기
+        String originalName = user.getName();
+
+        // 이름이 null이 아니고 길이가 1 이상인 경우만 처리
+        if (originalName != null && originalName.length() > 1) {
+            // 첫 글자를 제외한 나머지 글자를 "xx" 또는 "oo"로 바꾸기
+            String modifiedName = originalName.charAt(0) + "X".repeat(originalName.length() - 1);
+            return modifiedName;
+        } else if (originalName != null && originalName.length() == 1) {
+            // 이름이 한 글자일 경우 그대로 반환
+            return originalName;
+        } else {
+            throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
+        }
     }
 
 }
