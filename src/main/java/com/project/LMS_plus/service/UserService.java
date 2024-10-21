@@ -51,9 +51,9 @@ public class UserService {
         // 소프트웨어공학부의 경우 전공 선택 검증
         if (department.getId() == 1) { // departmentId가 1인 경우를 소프트웨어공학부로 가정
             if (form.getMajor() == null || (!form.getMajor().equals("게임소프트웨어전공")
-                    && !form.getMajor().equals("스마트아이티전공")
+                    && !form.getMajor().equals("인공지능전공")
                     && !form.getMajor().equals("정보보호학전공"))) {
-                throw new IllegalArgumentException("소프트웨어공학부에서는 게임소프트웨어전공, 스마트아이티전공, 정보보호학전공 중 하나를 선택해야 합니다.");
+                throw new IllegalArgumentException("소프트웨어공학부에서는 게임소프트웨어전공, 인공지능전공, 정보보호학전공 중 하나를 선택해야 합니다.");
             }
         }
 
