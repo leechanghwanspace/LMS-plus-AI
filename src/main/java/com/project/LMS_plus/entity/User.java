@@ -1,8 +1,12 @@
 package com.project.LMS_plus.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +39,9 @@ public class User {
     @JoinColumn(name = "department_id")  // User 테이블에 외래 키로 추가됨
     private Department department;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Board> boards = new ArrayList<>();
     // 기본 생성자
     public User() {}
 
@@ -48,5 +55,10 @@ public class User {
         this.doubleMajor = doubleMajor;
         this.year = year;
         this.department = department;
+    }
+
+    public void addBoard(Board board) {
+        this.boards.add(board);
+        board.setUser(this); // 보드의 사용자 정보를 설정합니다.
     }
 }
