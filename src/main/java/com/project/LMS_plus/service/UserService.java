@@ -96,5 +96,4 @@ public class UserService {
             throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
         }
     }
-
 }
