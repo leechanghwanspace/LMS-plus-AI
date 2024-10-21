@@ -1,6 +1,7 @@
 package com.project.LMS_plus.service;
 
 import com.project.LMS_plus.dto.SignUpForm;
+import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.dto.UserProfileForm;
 import com.project.LMS_plus.entity.Department;
 import com.project.LMS_plus.entity.User;
@@ -97,4 +98,21 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public UserDto  loadUserInfo(String userId){
+        User user = userRepository.findByStudentId(userId)
+                .orElseThrow(()-> new IllegalArgumentException("User not found with id: " + userId));
+
+        // 유저 정보 불러오는 기능
+        // 유저 정보를 DTO로 변환하여 반환
+        return new UserDto(
+                user.getStudentId(),
+                user.getEmail(),
+                user.getName(),
+                user.getMajor(),
+                user.getDoubleMajor(),
+                user.getYear(),
+                user.getDepartment().getName()  // Department의 이름을 불러옴
+        );
+    }
 }
