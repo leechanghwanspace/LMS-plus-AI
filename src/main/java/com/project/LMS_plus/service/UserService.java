@@ -1,6 +1,7 @@
 package com.project.LMS_plus.service;
 
 import com.project.LMS_plus.dto.SignUpForm;
+import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.dto.UserProfileForm;
 import com.project.LMS_plus.entity.Department;
 import com.project.LMS_plus.entity.User;

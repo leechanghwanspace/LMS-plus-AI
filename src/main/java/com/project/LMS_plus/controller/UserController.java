@@ -1,6 +1,7 @@
 package com.project.LMS_plus.controller;
 
 import com.project.LMS_plus.dto.SignUpForm;
+import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,14 @@ public class UserController {
             // 비밀번호 불일치 시 오류 메시지 반환
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/mypage/{userId}")
+    public ResponseEntity<UserDto> loadUserInfo(@PathVariable String userId) {
+        // User 정보를 불러오는 서비스 호출
+        UserDto userDto = userService.loadUserInfo(userId);
+
+        // 정상적으로 유저 정보를 반환
+        return ResponseEntity.ok(userDto);
     }
 }
