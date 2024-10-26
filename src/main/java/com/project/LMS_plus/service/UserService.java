@@ -55,9 +55,9 @@ public class UserService {
         // 소프트웨어공학부의 경우 전공 선택 검증
         if (department.getId() == 1) { // departmentId가 1인 경우를 소프트웨어공학부로 가정
             if (form.getMajor() == null || (!form.getMajor().equals("게임소프트웨어전공")
-                    && !form.getMajor().equals("스마트아이티전공")
+                    && !form.getMajor().equals("인공지능전공")
                     && !form.getMajor().equals("정보보호학전공"))) {
-                throw new IllegalArgumentException("소프트웨어공학부에서는 게임소프트웨어전공, 스마트아이티전공, 정보보호학전공 중 하나를 선택해야 합니다.");
+                throw new IllegalArgumentException("소프트웨어공학부에서는 게임소프트웨어전공, 인공지능전공, 정보보호학전공 중 하나를 선택해야 합니다.");
             }
         }
 
@@ -96,23 +96,5 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
         }
-    }
-
-    @Transactional
-    public UserDto  loadUserInfo(String userId){
-        User user = userRepository.findByStudentId(userId)
-                .orElseThrow(()-> new IllegalArgumentException("User not found with id: " + userId));
-
-        // 유저 정보 불러오는 기능
-        // 유저 정보를 DTO로 변환하여 반환
-        return new UserDto(
-                user.getStudentId(),
-                user.getEmail(),
-                user.getName(),
-                user.getMajor(),
-                user.getDoubleMajor(),
-                user.getYear(),
-                user.getDepartment().getName()  // Department의 이름을 불러옴
-        );
     }
 }
