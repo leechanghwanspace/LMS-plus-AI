@@ -103,8 +103,6 @@ public class UserService {
         User user = userRepository.findByStudentId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
-        // 유저 정보 불러오는 기능
-        // 유저 정보를 DTO로 변환하여 반환
         return new UserDto(
                 user.getStudentId(),
                 user.getEmail(),
