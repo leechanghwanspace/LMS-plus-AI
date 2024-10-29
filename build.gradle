@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
 	// Spring Boot 주요 기능
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -56,10 +57,10 @@ dependencies {
 	implementation 'software.amazon.awssdk:s3:2.20.0'
 	implementation 'software.amazon.awssdk:auth:2.20.0'
 
-	//csv
-	implementation 'com.opencsv:opencsv:5.6'
-}
+	implementation 'com.opencsv:opencsv:5.5.2' // csv, 파일 읽어오기
 
-tasks.named('test') {
+
+	tasks.named('test') {
 	useJUnitPlatform()
+	}
 }
