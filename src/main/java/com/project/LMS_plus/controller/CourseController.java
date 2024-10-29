@@ -3,10 +3,8 @@ package com.project.LMS_plus.controller;
 import com.project.LMS_plus.dto.CourseDetailDTO;
 import com.project.LMS_plus.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -20,15 +18,23 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    // 모든 과목 조회
+    // 1. 전체 과목 조회
     @GetMapping
     public List<CourseDetailDTO> getAllCourses() {
-        return courseService.loadCourseDetails();
+        return courseService.loadAllCourses();
     }
 
-    // 과목명으로 검색
-    @GetMapping("/search/{subjectName}")
-    public List<CourseDetailDTO> searchCoursesBySubjectName(@PathVariable String subjectName) {
-        return courseService.searchBySubjectName(subjectName);
+    // 2. 전공별 과목 조회
+    @GetMapping("/{majorType}")
+    public List<CourseDetailDTO> getCoursesByMajor(@PathVariable String majorType) {
+        return courseService.loadCoursesByMajor(majorType);
+    }
+
+    // 3. 전공 내 세부 교과목 조회
+    @GetMapping("/{majorType}/{subjectName}")
+    public List<CourseDetailDTO> getCoursesBySubjectName(
+            @PathVariable String majorType,
+            @PathVariable String subjectName) {
+        return courseService.searchCoursesBySubjectName(majorType, subjectName);
     }
 }
