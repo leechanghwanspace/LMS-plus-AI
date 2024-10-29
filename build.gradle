@@ -55,6 +55,9 @@ dependencies {
 	//AWS 배포 관련 의존성, S3 사용시 (Bucket, Object 추가) => 미사용시 추후 의존성 제거
 	implementation 'software.amazon.awssdk:s3:2.20.0'
 	implementation 'software.amazon.awssdk:auth:2.20.0'
+
+	//csv
+	implementation 'com.opencsv:opencsv:5.6'
 }
 
 tasks.named('test') {
