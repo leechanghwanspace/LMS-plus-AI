@@ -30,6 +30,31 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	// Validation 기능
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2' // Jakarta Validation API
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // 스프링 부트 Validation 기능
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok' // 컴파일 시에만 사용되는 Lombok
+	annotationProcessor 'org.projectlombok:lombok' // Lombok 어노테이션 프로세서
+
+	// 개발 편의를 위한 기능
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 개발 환경에서의 자동 리스타트 등 지원
+
+	// MySQL 데이터베이스 드라이버
+	runtimeOnly 'com.mysql:mysql-connector-j' // MySQL과의 연결을 위한 드라이버
+
+	// 애플리케이션 배포를 위한 Tomcat
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' // Tomcat 서버 제공
+
+	// 테스트 관련 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 테스트를 위한 기본 의존성
+	testImplementation 'org.springframework.security:spring-security-test' // Security 관련 테스트 지원
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit 플랫폼 런처
+
+	//AWS 배포 관련 의존성, S3 사용시 (Bucket, Object 추가) => 미사용시 추후 의존성 제거
+	implementation 'software.amazon.awssdk:s3:2.20.0'
+	implementation 'software.amazon.awssdk:auth:2.20.0'
 }
 
 tasks.named('test') {
