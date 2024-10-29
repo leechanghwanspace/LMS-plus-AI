@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CourseService {
 
     private static final String BASE_CSV_PATH =
-            //#########"여기에 csv 파일 주소 넣어 \\src\\main\\resources\\csv\\";
+            //#####"여기에 csv 파일 주소 넣어 \\src\\main\\resources\\csv\\";
 
     // CSV 파일 로드 메서드
     private List<CourseDetailDTO> loadCourseFromFile(String filePath) {
