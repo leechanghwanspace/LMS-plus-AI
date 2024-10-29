@@ -34,8 +34,7 @@ public class User {
     @Column
     private Integer year; // 학년
 
-    // Department와의 1:1 관계 설정
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "department_id")  // User 테이블에 외래 키로 추가됨
     private Department department;
 
