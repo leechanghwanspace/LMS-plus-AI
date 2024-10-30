@@ -111,6 +111,19 @@ public class UserService {
                 user.getYear(),
                 user.getDepartment().getName()  // Department의 이름을 불러옴
         );
+    }
 
+    @Transactional
+    public boolean haveMajorAndGrade(String userId) {
+        User user = userRepository.findByStudentId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + userId));
+
+        // `major`, `doubleMajor`, `department`, 'year' 가 모두 존재하는지 여부 확인
+        return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null;
+    }
+
+    @Transactional
+    public boolean 사용자_이름_정보And강의_설정(){
+        return true;
     }
 }
