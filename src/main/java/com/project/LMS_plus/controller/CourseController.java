@@ -16,15 +16,29 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    // 모든 과목 조회
-    @GetMapping
-    public List<CourseDetailDTO> getAllCourses() {
-        return courseService.loadCourseDetails();
+
+    @Autowired
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
     }
 
-    // 과목명으로 검색
-    @GetMapping("/search/{subjectName}")
-    public List<CourseDetailDTO> searchCoursesBySubjectName(@PathVariable String subjectName) {
-        return courseService.searchBySubjectName(subjectName);
+
+    @GetMapping
+    public List<CourseDetailDTO> getAllCourses() {
+        return courseService.loadAllCourses();
+    }
+
+    // 2. 전공별 과목 조회
+    @GetMapping("/{majorType}")
+    public List<CourseDetailDTO> getCoursesByMajor(@PathVariable String majorType) {
+        return courseService.loadCoursesByMajor(majorType);
+    }
+
+    // 3. 전공 내 세부 교과목 조회
+    @GetMapping("/{majorType}/{subjectName}")
+    public List<CourseDetailDTO> getCoursesBySubjectName(
+            @PathVariable String majorType,
+            @PathVariable String subjectName) {
+        return courseService.searchCoursesBySubjectName(majorType, subjectName);
     }
 }
