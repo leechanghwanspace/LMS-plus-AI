@@ -4,37 +4,71 @@ import com.opencsv.bean.CsvBindByPosition;
 
 public class CourseDetailDTO {
     @CsvBindByPosition(position = 0)
-    private String subjectName;
-
+    private String subjectCode;
     @CsvBindByPosition(position = 1)
-    private int week;
-
+    private String subjectName;
     @CsvBindByPosition(position = 2)
-    private String content;
+    private int credit;
+    @CsvBindByPosition(position = 3)
+    private String webapp;  // boolean에서 String으로 변경
+    @CsvBindByPosition(position = 4)
+    private String game;    // boolean에서 String으로 변경
+    @CsvBindByPosition(position = 5)
+    private String data;    // boolean에서 String으로 변경
+    @CsvBindByPosition(position = 6)
+    private String security; // boolean에서 String으로 변경
 
     public CourseDetailDTO() {}
 
-    public CourseDetailDTO(String subjectName, int week, String content) {
+    public CourseDetailDTO(String subjectCode, String subjectName, int credit, String webapp, String game, String data, String security) {
+        this.subjectCode = subjectCode;
         this.subjectName = subjectName;
-        this.week = week;
-        this.content = content;
+        this.credit = credit;
+        this.webapp = webapp;
+        this.game = game;
+        this.data = data;
+        this.security = security;
     }
 
-    // Getters and toString() method
+    // Getters
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
     public String getSubjectName() {
         return subjectName;
     }
 
-    public int getWeek() {
-        return week;
+    public int getCredit() {
+        return credit;
     }
 
-    public String getContent() {
-        return content;
+    public String getWebapp() {
+        return webapp;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getSecurity() {
+        return security;
     }
 
     @Override
     public String toString() {
-        return "Subject: " + subjectName + ", Week: " + week + ", Content: " + content;
+        return "CourseDetailDTO{" +
+                "subjectCode='" + subjectCode + '\'' +
+                ", subjectName='" + subjectName + '\'' +
+                ", credit=" + credit +
+                ", webapp='" + webapp + '\'' +
+                ", game='" + game + '\'' +
+                ", data='" + data + '\'' +
+                ", security='" + security + '\'' +
+                '}';
     }
 }
