@@ -19,14 +19,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login", "/api/signup").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()  // Swagger 경로 허용
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginProcessingUrl("/api/login")
                         .usernameParameter("studentId")
                         .passwordParameter("password")
-                        .successHandler(successHandler())  // 로그인 성공 처리
-                        .failureHandler(failureHandler())  // 로그인 실패 처리
                         .permitAll()
                 )
                 .sessionManagement(session -> session
