@@ -57,8 +57,10 @@ dependencies {
 	implementation 'software.amazon.awssdk:s3:2.20.0'
 	implementation 'software.amazon.awssdk:auth:2.20.0'
 
-	implementation 'com.opencsv:opencsv:5.5.2' // csv, 파일 읽어오기
+	// csv, 파일 읽어오기
+	implementation 'com.opencsv:opencsv:5.5.2'
 
+	//Swagger UI를 통해 API 인터페이스 제공
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
 
