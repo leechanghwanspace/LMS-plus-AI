@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CourseService {
 
     private static final String BASE_CSV_PATH =
-            //#####"여기에 csv 파일 주소 넣어 \\src\\main\\resources\\csv\\";
+            "C:\\Users\\space\\OneDrive\\바탕 화면\\changhwan space\\DEVELOP\\PROJECT(LMS)\\LMS_plus\\src\\main\\resources\\csv\\";
 
     // CSV 파일 로드 메서드
     private List<CourseDetailDTO> loadCourseFromFile(String filePath) {
@@ -39,15 +39,18 @@ public class CourseService {
 
         for (File file : Objects.requireNonNull(folder.listFiles())) {
             if (file.getName().endsWith(".csv")) {
+                System.out.println("로드 중인 CSV 파일: " + file.getName());  // 디버깅 로깅 추가
                 allCourses.addAll(loadCourseFromFile(file.getPath()));
             }
         }
+        System.out.println("전체 로드된 과목 수: " + allCourses.size());
         return allCourses;
     }
 
     // 전공별 과목 조회: 특정 전공의 CSV 파일 로드
     public List<CourseDetailDTO> loadCoursesByMajor(String majorType) {
-        String csvFilePath = BASE_CSV_PATH + majorType + "_courses.csv";
+        String csvFilePath = BASE_CSV_PATH + majorType + "_courses_1.csv";  // 수정된 파일명
+        System.out.println("전공별 CSV 파일 경로: " + csvFilePath);  // 디버깅 로깅 추가
         File csvFile = new File(csvFilePath);
 
         if (!csvFile.exists()) {
@@ -64,5 +67,28 @@ public class CourseService {
         return majorCourses.stream()
                 .filter(course -> course.getSubjectName().equalsIgnoreCase(subjectName))
                 .collect(Collectors.toList());
+    }
+
+    // 직무에 맞는 과목 추천 메소드 추가
+    public List<CourseDetailDTO> getRecommendedCourses(String majorType, String jobRole) {
+        List<CourseDetailDTO> courses = loadCoursesByMajor(majorType);  // 수정: 파일명에 확장자를 포함하지 않음
+        return courses.stream()
+                .filter(course -> courseMatchesJobRole(course, jobRole))
+                .collect(Collectors.toList());
+    }
+
+    private boolean courseMatchesJobRole(CourseDetailDTO course, String jobRole) {
+        switch (jobRole.toLowerCase()) {
+            case "webapp":
+                return "True".equalsIgnoreCase(course.getWebapp());
+            case "game":
+                return "True".equalsIgnoreCase(course.getGame());
+            case "data":
+                return "True".equalsIgnoreCase(course.getData());
+            case "security":
+                return "True".equalsIgnoreCase(course.getSecurity());
+            default:
+                return false;
+        }
     }
 }

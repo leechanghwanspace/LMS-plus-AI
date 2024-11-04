@@ -72,6 +72,7 @@ public class UserService {
         user.setMajor(form.getMajor());
         user.setDoubleMajor(doubleMajor);
         user.setYear(form.getYear());
+        user.setJobRole(form.getJobRole()); // 직무(webapp,game,data,security) 정보를 업데이트
 
         // 변경된 사용자 정보 저장
         userRepository.save(user);
