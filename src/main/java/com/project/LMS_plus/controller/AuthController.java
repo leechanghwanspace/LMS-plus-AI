@@ -16,4 +16,10 @@ public class AuthController {
         // 스프링 시큐리티가 세션을 자동으로 관리
         return ResponseEntity.ok("로그인 성공");
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // 로그아웃 로직은 SecurityConfig에서 자동으로 처리됨
+        return ResponseEntity.ok("로그아웃 성공");
+    }
 }
