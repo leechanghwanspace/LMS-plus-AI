@@ -29,8 +29,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login", "/api/logout", "/api/signup").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()  // Swagger 경로 허용
-
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -51,6 +50,13 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setContentType("application/json");
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.getWriter().write("{\"message\":\"인증이 필요합니다.\"}");
+                        })
                 )
                 .sessionManagement(session -> session
                         .maximumSessions(1)
@@ -79,12 +85,8 @@ public class SecurityConfig {
         return (request, response, exception) -> {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
-
-            // 실패 메시지 반환
-            response.getWriter().write("{\"message\":\"로그인 실패\"}");
-
-            // 로그인 실패 시 401 상태 코드 반환
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"message\":\"로그인 실패\"}");
         };
     }
 }
