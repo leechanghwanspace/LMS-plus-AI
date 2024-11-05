@@ -4,8 +4,10 @@ import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.dto.UserProfileForm;
 import com.project.LMS_plus.entity.Department;
+import com.project.LMS_plus.entity.Job;
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.DepartmentRepository;
+import com.project.LMS_plus.repository.JobRepository;
 import com.project.LMS_plus.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JobRepository jobRepository;
+
 
     // 기존 회원가입 로직
     @Transactional
@@ -111,7 +117,8 @@ public class UserService {
                 user.getMajor(),
                 user.getDoubleMajor(),
                 user.getYear(),
-                user.getDepartment().getName()  // Department의 이름을 불러옴
+                user.getDepartment().getName(),
+                user.getJobRole()
         );
     }
 
@@ -124,10 +131,15 @@ public class UserService {
         return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null;
     }
 
-    public void savingUserJob(String userId, String jobName){
+    public void savingUserJob(String userId, String jobName) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        user.setJobRole(jobName);
+        Job job = jobRepository.findByJobName(jobName)
+                .orElseThrow(() -> new EntityNotFoundException("Job not found with name: " + jobName));
+
+        user.setJobRole(job);
+        userRepository.save(user);
     }
+
 }
