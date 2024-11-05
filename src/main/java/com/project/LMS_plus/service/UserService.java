@@ -7,6 +7,7 @@ import com.project.LMS_plus.entity.Department;
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.DepartmentRepository;
 import com.project.LMS_plus.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -123,8 +124,10 @@ public class UserService {
         return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null;
     }
 
-    @Transactional
-    public boolean 사용자_이름_정보And강의_설정(){
-        return true;
+    public void savingUserJob(String userId, String jobName){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+
+        user.setJobRole(jobName);
     }
 }
