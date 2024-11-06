@@ -34,8 +34,10 @@ public class User {
     @Column
     private Integer year; // 학년
 
-    @Column
-    private String jobRole; // 직무(webapp,game,data,security)를 저장하는 필드
+
+    @ManyToOne
+    @JoinColumn(name = "job_id")  // 외래 키로 `Job` 엔티티를 참조
+    private Job job;          // 사용자가 희망하는 직업군
 
     @ManyToOne
     @JoinColumn(name = "department_id")  // User 테이블에 외래 키로 추가됨

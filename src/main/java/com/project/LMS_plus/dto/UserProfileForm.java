@@ -1,6 +1,7 @@
 package com.project.LMS_plus.dto;
 
 
+import com.project.LMS_plus.entity.Job;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,5 @@ public class UserProfileForm {
     private String major;
     private String doubleMajor;
     private Integer year;
-    private String jobRole; // 사용자가 선택한 직무(webapp,game,data,security) 필드 추가
-
-    // Getters and setters
+    private Job jobRole;
 }
