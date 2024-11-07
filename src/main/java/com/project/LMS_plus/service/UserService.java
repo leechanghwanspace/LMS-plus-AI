@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.channels.IllegalChannelGroupException;
+
 @Service
 public class UserService {
 
@@ -29,6 +31,8 @@ public class UserService {
 
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private JobService jobService;
 
 
     // 기존 회원가입 로직
@@ -59,6 +63,9 @@ public class UserService {
         Department department = departmentRepository.findById(form.getDepartmentId())
                 .orElseThrow(() -> new IllegalArgumentException("학부가 존재하지 않습니다."));
 
+        Job job = jobRepository.findById(form.getJobId())
+                .orElseThrow(() -> new IllegalArgumentException("직업이 존재하지 않습니다."));
+
         // 소프트웨어공학부의 경우 전공 선택 검증
         if (department.getId() == 1) { // departmentId가 1인 경우를 소프트웨어공학부로 가정
             if (form.getMajor() == null || (!form.getMajor().equals("게임소프트웨어전공")
@@ -79,7 +86,7 @@ public class UserService {
         user.setMajor(form.getMajor());
         user.setDoubleMajor(doubleMajor);
         user.setYear(form.getYear());
-        user.setJob(form.getJobRole()); // 직무(webapp,game,data,security) 정보를 업데이트
+        user.setJob(job);
 
         // 변경된 사용자 정보 저장
         userRepository.save(user);
@@ -130,16 +137,4 @@ public class UserService {
         // `major`, `doubleMajor`, `department`, 'year' 가 모두 존재하는지 여부 확인
         return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null;
     }
-
-    public void savingUserJob(String userId, String jobName) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-
-        Job job = jobRepository.findByJobName(jobName)
-                .orElseThrow(() -> new EntityNotFoundException("Job not found with name: " + jobName));
-
-        user.setJob(job);
-        userRepository.save(user);
-    }
-
 }
