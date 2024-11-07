@@ -75,9 +75,15 @@ public class SecurityConfig {
         return (request, response, authentication) -> {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
-            response.getWriter().write("{\"message\":\"로그인 성공\"}");
+
+            // 인증된 사용자 정보에서 studentID 가져오기
+            String studentId = authentication.getName(); // studentId = 회원가입시 기입한 8자리 학번
+
+            // JSON 값에 학번 반환값 추가
+            response.getWriter().write("{\"message\":\"로그인 성공\", \"studentID\":\"" + studentId + "\"}");
         };
     }
+
 
     // 로그인 실패 핸들러
     @Bean
