@@ -135,6 +135,6 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + userId));
 
         // `major`, `doubleMajor`, `department`, 'year' 가 모두 존재하는지 여부 확인
-        return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null;
+        return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
     }
 }
