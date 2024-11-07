@@ -20,4 +20,5 @@ public class JobService {
         // Job 객체를 데이터베이스에 저장
         return jobRepository.save(job);
     }
+
 }

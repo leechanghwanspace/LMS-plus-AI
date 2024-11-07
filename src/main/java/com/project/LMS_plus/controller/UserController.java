@@ -2,6 +2,7 @@ package com.project.LMS_plus.controller;
 
 import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
+import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -68,25 +69,6 @@ public class UserController {
     @GetMapping("/mypage/{userId}")
     public ResponseEntity<UserDto> loadUserInfo(@PathVariable String userId) {
         UserDto userDto = userService.loadUserInfo(userId);
-        return ResponseEntity.ok(userDto);
-    }
-
-    /**
-     * 사용자 직무 업데이트
-     * 사용자 정보를 기반으로 새로운 직무 정보를 업데이트합니다.
-     *
-     * @param userDto 사용자 정보와 직무 정보를 포함한 DTO
-     * @return 업데이트된 사용자 정보
-     */
-    @Operation(summary = "사용자 직무 업데이트", description = "사용자 ID와 새로운 직무를 받아서 사용자의 직무 정보를 업데이트합니다.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "사용자 직무 업데이트 성공",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
-            @ApiResponse(responseCode = "400", description = "유효하지 않은 사용자 정보 또는 직무 정보")
-    })
-    @PostMapping("/update/userjob")
-    public ResponseEntity<UserDto> updateUserJob(@RequestBody UserDto userDto) {
-        userService.savingUserJob(userDto.getStudentId(), String.valueOf(userDto.getJob()));
         return ResponseEntity.ok(userDto);
     }
 }

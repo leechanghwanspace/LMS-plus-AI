@@ -12,5 +12,5 @@ public class UserProfileForm {
     private String major;
     private String doubleMajor;
     private Integer year;
-    private Job jobRole;
+    private Long jobId;
 }
