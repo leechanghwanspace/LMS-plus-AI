@@ -112,6 +112,7 @@ public class UserService {
             throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
         }
     }
+
     @Transactional
     public UserDto loadUserInfo(String userId) {
         User user = userRepository.findByStudentId(userId)
@@ -130,11 +131,29 @@ public class UserService {
     }
 
     @Transactional
+    public UserDto loadUserSchoolCourseInfo(String userId) {
+        User user = userRepository.findByStudentId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+
+        return new UserDto(
+                user.getStudentId(),
+                user.getEmail(),
+                user.getName(),
+                user.getMajor(),
+                user.getDoubleMajor(),
+                user.getYear(),
+                user.getDepartment().getName(),
+                user.getJob(),
+                user.getSchoolCourses()
+        );
+    }
+
+    @Transactional
     public boolean haveMajorAndGrade(String userId) {
         User user = userRepository.findByStudentId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + userId));
 
         // `major`, `doubleMajor`, `department`, 'year' 가 모두 존재하는지 여부 확인
-        return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null;
+        return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
     }
 }
