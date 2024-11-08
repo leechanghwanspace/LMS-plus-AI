@@ -1,15 +1,22 @@
 package com.project.LMS_plus.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.opencsv.bean.CsvBindByPosition;
 
+@JsonPropertyOrder({"subjectCode", "subjectName", "week", "weeklyContent"})  // 필드 순서 지정
 public class CourseContentDto {
 
     @CsvBindByPosition(position = 0)
     private String subjectCode;
+
     @CsvBindByPosition(position = 1)
     private String subjectName;
+
+    @JsonProperty("week")  // JSON에서 "week"로 표시
     @CsvBindByPosition(position = 2)
     private int credit;
+
     @CsvBindByPosition(position = 3)
     private String weeklyContent;
 
@@ -59,7 +66,7 @@ public class CourseContentDto {
         return "CourseContentDto{" +
                 "subjectCode='" + subjectCode + '\'' +
                 ", subjectName='" + subjectName + '\'' +
-                ", credit=" + credit +
+                ", week=" + credit +
                 ", weeklyContent='" + weeklyContent + '\'' +
                 '}';
     }
