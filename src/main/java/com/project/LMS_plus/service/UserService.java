@@ -112,6 +112,7 @@ public class UserService {
             throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
         }
     }
+
     @Transactional
     public UserDto loadUserInfo(String userId) {
         User user = userRepository.findByStudentId(userId)
@@ -126,6 +127,24 @@ public class UserService {
                 user.getYear(),
                 user.getDepartment().getName(),
                 user.getJob()
+        );
+    }
+
+    @Transactional
+    public UserDto loadUserSchoolCourseInfo(String userId) {
+        User user = userRepository.findByStudentId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+
+        return new UserDto(
+                user.getStudentId(),
+                user.getEmail(),
+                user.getName(),
+                user.getMajor(),
+                user.getDoubleMajor(),
+                user.getYear(),
+                user.getDepartment().getName(),
+                user.getJob(),
+                user.getSchoolCourses()
         );
     }
 

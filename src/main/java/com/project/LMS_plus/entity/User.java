@@ -48,6 +48,10 @@ public class User {
     private List<Board> boards = new ArrayList<>();
 
     // 교과목
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<SchoolCourse> schoolCourses = new ArrayList<>();  // User가 여러 SchoolCourse를 가질 수 있게 수정
+
     // 기본 생성자
     public User() {}
 
@@ -66,5 +70,10 @@ public class User {
     public void addBoard(Board board) {
         this.boards.add(board);
         board.setUser(this); // 보드의 사용자 정보를 설정합니다.
+    }
+
+    public void addSchoolCourse(SchoolCourse schoolCourse) {
+        this.schoolCourses.add(schoolCourse);
+        schoolCourse.setUser(this);  // 과목의 사용자 정보를 설정
     }
 }
