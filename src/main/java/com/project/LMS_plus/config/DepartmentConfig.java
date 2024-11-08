@@ -12,8 +12,8 @@ public class DepartmentConfig {
     @Bean
     CommandLineRunner initDepartmentData(DepartmentRepository departmentRepository) {
         return args -> {
-            // 소프트웨어공학부 데이터가 없을 때만 추가
-            if (departmentRepository.findAll().isEmpty()) {
+            // "소프트웨어공학부"라는 이름의 학부가 없을 때만 추가
+            if (!departmentRepository.existsByName("소프트웨어공학부")) {
                 Department department = new Department(
                         "소프트웨어공학부",
                         "소프트웨어공학부엔 게임소프트웨어학과, 정보보호학과, 스마트IT학과가 있습니다."

@@ -22,7 +22,9 @@ public class JobConfig {
             );
 
             for (String name : jobNames) {
-                jobRepository.save(new Job(name));
+                if (!jobRepository.existsByJobName(name)) {
+                    jobRepository.save(new Job(name));
+                }
             }
         };
     }
