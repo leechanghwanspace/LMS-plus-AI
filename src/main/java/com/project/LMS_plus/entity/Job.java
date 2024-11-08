@@ -17,5 +17,9 @@ public class Job {
     private Long id;
 
     private String jobName;
+    public Job() {}
 
+    public Job(String name) {
+        this.jobName = name;
+    }
 }
