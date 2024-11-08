@@ -75,16 +75,9 @@ public class UserService {
             }
         }
 
-        // 복수 전공이 있을 경우 '기타'로 설정
-        String doubleMajor = form.getDoubleMajor();
-        if (doubleMajor != null && !doubleMajor.equals("없음")) {
-            doubleMajor = "기타";
-        }
-
         // 사용자 정보 업데이트
         user.setDepartment(department);
         user.setMajor(form.getMajor());
-        user.setDoubleMajor(doubleMajor);
         user.setYear(form.getYear());
         user.setJob(job);
 
@@ -123,7 +116,6 @@ public class UserService {
                 user.getEmail(),
                 user.getName(),
                 user.getMajor(),
-                user.getDoubleMajor(),
                 user.getYear(),
                 user.getDepartment().getName(),
                 user.getJob()
@@ -140,7 +132,6 @@ public class UserService {
                 user.getEmail(),
                 user.getName(),
                 user.getMajor(),
-                user.getDoubleMajor(),
                 user.getYear(),
                 user.getDepartment().getName(),
                 user.getJob(),
@@ -153,7 +144,7 @@ public class UserService {
         User user = userRepository.findByStudentId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + userId));
 
-        // `major`, `doubleMajor`, `department`, 'year' 가 모두 존재하는지 여부 확인
-        return user.getMajor() != null && user.getDoubleMajor() != null && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
+        // `major`, `department`, 'year' 가 모두 존재하는지 여부 확인
+        return user.getMajor() != null  && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
     }
 }
