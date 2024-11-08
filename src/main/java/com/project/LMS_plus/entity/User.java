@@ -29,9 +29,6 @@ public class User {
     private String major; // 주 전공
 
     @Column
-    private String doubleMajor; // 복수 전공
-
-    @Column
     private Integer year; // 학년
 
 
@@ -56,13 +53,12 @@ public class User {
     public User() {}
 
     // 생성자
-    public User(String studentId, String email, String password, String name, String major, String doubleMajor, Integer year, Department department) {
+    public User(String studentId, String email, String password, String name, String major, Integer year, Department department) {
         this.studentId = studentId;
         this.email = email;
         this.password = password;
         this.name = name;
         this.major = major;
-        this.doubleMajor = doubleMajor;
         this.year = year;
         this.department = department;
     }

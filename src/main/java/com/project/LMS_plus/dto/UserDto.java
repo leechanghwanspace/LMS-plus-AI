@@ -16,31 +16,28 @@ public class UserDto {
     private String email;
     private String name;
     private String major;
-    private String doubleMajor;
     private Integer year;
     private String departmentName;  // Department 정보
     private Job job;
     private List<SchoolCourse> schoolCourses;
 
     // 생성자, getter, setter 추가
-    public UserDto(String studentId, String email, String name, String major, String doubleMajor, Integer year, String departmentName, Job job) {
+    public UserDto(String studentId, String email, String name, String major, Integer year, String departmentName, Job job) {
         this.studentId = studentId;
         this.email = email;
         this.name = name;
         this.major = major;
-        this.doubleMajor = doubleMajor;
         this.year = year;
         this.departmentName = departmentName;
         this.job = job;
     }
 
 
-    public UserDto(String studentId, String email, String name, String major, String doubleMajor, Integer year, String departmentName, Job job, List<SchoolCourse> schoolCourses) {
+    public UserDto(String studentId, String email, String name, String major, Integer year, String departmentName, Job job, List<SchoolCourse> schoolCourses) {
         this.studentId = studentId;
         this.email = email;
         this.name = name;
         this.major = major;
-        this.doubleMajor = doubleMajor;
         this.year = year;
         this.departmentName = departmentName;
         this.job = job;
