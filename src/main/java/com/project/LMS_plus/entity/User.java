@@ -46,6 +46,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Board> boards = new ArrayList<>();
+
+    // 교과목
     // 기본 생성자
     public User() {}
 
