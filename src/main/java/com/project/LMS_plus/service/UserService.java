@@ -9,13 +9,12 @@ import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.DepartmentRepository;
 import com.project.LMS_plus.repository.JobRepository;
 import com.project.LMS_plus.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.channels.IllegalChannelGroupException;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -31,11 +30,15 @@ public class UserService {
 
     @Autowired
     private JobRepository jobRepository;
-    @Autowired
-    private JobService jobService;
 
+    // 사용자 조회 메서드 추가 (SecurityConfig에서 사용)
+    @Transactional
+    public User findUserByStudentId(String studentId) {
+        return userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+    }
 
-    // 기존 회원가입 로직
+    // 회원가입 로직
     @Transactional
     public void registerUser(SignUpForm form) {
 
@@ -90,16 +93,12 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
-        // 사용자의 이름 가져오기
         String originalName = user.getName();
 
-        // 이름이 null이 아니고 길이가 1 이상인 경우만 처리
         if (originalName != null && originalName.length() > 1) {
-            // 첫 글자를 제외한 나머지 글자를 "xx" 또는 "oo"로 바꾸기
             String modifiedName = originalName.charAt(0) + "X".repeat(originalName.length() - 1);
             return modifiedName;
         } else if (originalName != null && originalName.length() == 1) {
-            // 이름이 한 글자일 경우 그대로 반환
             return originalName;
         } else {
             throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
@@ -144,7 +143,6 @@ public class UserService {
         User user = userRepository.findByStudentId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + userId));
 
-        // `major`, `department`, 'year' 가 모두 존재하는지 여부 확인
-        return user.getMajor() != null  && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
+        return user.getMajor() != null && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
     }
 }
