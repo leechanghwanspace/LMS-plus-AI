@@ -2,6 +2,7 @@ package com.project.LMS_plus.controller;
 
 import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
+import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
@@ -22,6 +25,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
 
     /**
      * 회원가입 엔드포인트
@@ -84,4 +89,14 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
+    @Operation(summary = "사용자에 수강과목 데이터가 있으면 불러오기", description = "특정 사용자 ID를 사용해 수강중인 교과목을 불러옵니다.")
+    @GetMapping("/have/schoolCourse/{studentId}")
+    public ResponseEntity<List<SchoolCourse>> userHaveSchoolCourse(@PathVariable String studentId){
+        if(userService.haveSchoolSubject(studentId)){
+            List<SchoolCourse> userSchoolCourse = userService.loadOnlyUserSchoolCourse(studentId);
+
+            return ResponseEntity.ok(userSchoolCourse);
+        }
+        return ResponseEntity.badRequest().body(null);
+    }
 }

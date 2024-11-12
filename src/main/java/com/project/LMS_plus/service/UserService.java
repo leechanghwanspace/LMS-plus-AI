@@ -5,6 +5,7 @@ import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.dto.UserProfileForm;
 import com.project.LMS_plus.entity.Department;
 import com.project.LMS_plus.entity.Job;
+import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.DepartmentRepository;
 import com.project.LMS_plus.repository.JobRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.channels.IllegalChannelGroupException;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -86,9 +88,9 @@ public class UserService {
     }
 
     @Transactional
-    public String modifyName(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    public String modifyName(String studentId) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
         // 사용자의 이름 가져오기
         String originalName = user.getName();
@@ -102,14 +104,14 @@ public class UserService {
             // 이름이 한 글자일 경우 그대로 반환
             return originalName;
         } else {
-            throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
+            throw new IllegalArgumentException("Name is invalid or empty for user with id: " + studentId);
         }
     }
 
     @Transactional
-    public UserDto loadUserInfo(String userId) {
-        User user = userRepository.findByStudentId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    public UserDto loadUserInfo(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
         return new UserDto(
                 user.getStudentId(),
@@ -123,9 +125,9 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto loadUserSchoolCourseInfo(String userId) {
-        User user = userRepository.findByStudentId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    public UserDto loadUserSchoolCourseInfo(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
         return new UserDto(
                 user.getStudentId(),
@@ -140,11 +142,27 @@ public class UserService {
     }
 
     @Transactional
-    public boolean haveMajorAndGrade(String userId) {
-        User user = userRepository.findByStudentId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + userId));
+    public List<SchoolCourse> loadOnlyUserSchoolCourse(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
+
+        return user.getSchoolCourses();
+    }
+
+    @Transactional
+    public boolean haveMajorAndGrade(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + studentId));
 
         // `major`, `department`, 'year' 가 모두 존재하는지 여부 확인
         return user.getMajor() != null  && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
+    }
+
+    @Transactional
+    public boolean haveSchoolSubject(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + studentId));
+
+        return user.getSchoolCourses() != null;
     }
 }
