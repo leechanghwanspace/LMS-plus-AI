@@ -23,21 +23,21 @@ public class CommentService {
     private final UserService userService;
 
     @Transactional
-    public Comment createComment(Long boardId, CommentDto commentDto, String userId) {
+    public Comment createComment(Long boardId, CommentDto commentDto, String studentId) {
         // 게시글 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("Board not found"));
 
         // 사용자 확인
-        User user = userRepository.findByStudentId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
         // 댓글 생성
         Comment comment = new Comment();
         comment.setComment(commentDto.getComment());
         comment.setBoard(board);
         comment.setUser(user); // User 객체를 설정
-        comment.setWriter(userService.modifyName(userId));
+        comment.setWriter(userService.modifyName(studentId));
 
         // 댓글 저장
         return commentRepository.save(comment);
@@ -50,7 +50,7 @@ public class CommentService {
 
 
     @Transactional
-    public Comment updateComment(Long boardId, Long commentId, CommentDto commentDto, String userId) {
+    public Comment updateComment(Long boardId, Long commentId, CommentDto commentDto, String studentId) {
         // 게시글 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("Board not found"));
@@ -65,7 +65,7 @@ public class CommentService {
         }
 
         // 댓글 작성자 확인
-        if (!comment.getUser().getStudentId().equals(userId)) {
+        if (!comment.getUser().getStudentId().equals(studentId)) {
             throw new IllegalArgumentException("Unauthorized to update this comment");
         }
 
@@ -73,14 +73,14 @@ public class CommentService {
         comment.update(commentDto.getComment());
 
         // writer를 userService.modifyName(userId)를 통해 설정
-        String modifiedWriterName = userService.modifyName(userId);
+        String modifiedWriterName = userService.modifyName(studentId);
         comment.setWriter(modifiedWriterName);
 
         return commentRepository.save(comment);
     }
 
     @Transactional
-    public void deleteComment(Long boardId, Long commentId, String userId) {
+    public void deleteComment(Long boardId, Long commentId, String studentId) {
         // 게시글 확인
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("Board not found"));
@@ -95,7 +95,7 @@ public class CommentService {
         }
 
         // 댓글 작성자 확인
-        if (!comment.getUser().getStudentId().equals(userId)) {
+        if (!comment.getUser().getStudentId().equals(studentId)) {
             throw new IllegalArgumentException("Unauthorized to delete this comment");
         }
 

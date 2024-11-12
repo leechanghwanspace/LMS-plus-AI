@@ -32,8 +32,8 @@ public class CommentController {
             @Parameter(description = "현재 로그인한 사용자의 인증 정보", hidden = true)
             Authentication authentication) {
 
-        String userId = authentication.getName();  // 현재 로그인한 사용자 ID
-        Comment comment = commentService.createComment(boardId, commentDto, userId);
+        String studentId = authentication.getName();  // 현재 로그인한 사용자 ID
+        Comment comment = commentService.createComment(boardId, commentDto, studentId);
         return ResponseEntity.ok(comment);
     }
 
@@ -59,8 +59,8 @@ public class CommentController {
             @Parameter(description = "현재 로그인한 사용자의 인증 정보", hidden = true)
             Authentication authentication) {
 
-        String userId = authentication.getName();  // 현재 로그인한 사용자 ID
-        Comment updatedComment = commentService.updateComment(boardId, commentId, commentDto, userId);
+        String studentId = authentication.getName();  // 현재 로그인한 사용자 ID
+        Comment updatedComment = commentService.updateComment(boardId, commentId, commentDto, studentId);
         return ResponseEntity.ok(updatedComment);
     }
 
@@ -74,8 +74,8 @@ public class CommentController {
             @Parameter(description = "현재 로그인한 사용자의 인증 정보", hidden = true)
             Authentication authentication) {
 
-        String userId = authentication.getName();  // 현재 로그인한 사용자 ID
-        commentService.deleteComment(boardId, commentId, userId);
+        String studentId = authentication.getName();  // 현재 로그인한 사용자 ID
+        commentService.deleteComment(boardId, commentId, studentId);
         return ResponseEntity.noContent().build();
     }
 }

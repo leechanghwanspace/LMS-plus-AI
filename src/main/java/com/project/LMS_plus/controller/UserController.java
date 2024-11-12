@@ -59,9 +59,9 @@ public class UserController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     })
-    @GetMapping("/mypage/schoolCourse/{userId}")
-    public ResponseEntity<UserDto> loadUserSchoolCourse(@PathVariable String userId) {
-        UserDto userDto = userService.loadUserSchoolCourseInfo(userId);
+    @GetMapping("/mypage/schoolCourse/{studentId}")
+    public ResponseEntity<UserDto> loadUserSchoolCourse(@PathVariable String studentId) {
+        UserDto userDto = userService.loadUserSchoolCourseInfo(studentId);
         return ResponseEntity.ok(userDto);
     }
 
@@ -69,7 +69,7 @@ public class UserController {
      * 마이페이지 정보 불러오기
      * 특정 사용자 ID로 마이페이지 정보를 불러옵니다.
      *
-     * @param userId 사용자 ID
+     * @param studentId 사용자 ID
      * @return 사용자 정보 DTO
      */
     @Operation(summary = "마이페이지 정보 조회(수강과목 미포함)", description = "특정 사용자 ID를 사용해 마이페이지 정보를 조회합니다.")
@@ -78,9 +78,9 @@ public class UserController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(responseCode = "404", description = "사용자를 찾을 수 없음")
     })
-    @GetMapping("/mypage/{userId}")
-    public ResponseEntity<UserDto> loadUserInfo(@PathVariable String userId) {
-        UserDto userDto = userService.loadUserInfo(userId);
+    @GetMapping("/mypage/{studentId}")
+    public ResponseEntity<UserDto> loadUserInfo(@PathVariable String studentId) {
+        UserDto userDto = userService.loadUserInfo(studentId);
         return ResponseEntity.ok(userDto);
     }
 

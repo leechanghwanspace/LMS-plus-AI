@@ -58,21 +58,21 @@ public class RecommendController {
     @GetMapping("/coursesByUserJob")
     public List<RecommendCourse> getCoursesByUserJob(
             @Parameter(description = "사용자 ID", required = true)
-            @RequestParam String userId,
+            @RequestParam String studentId,
             @RequestParam String filePath) {
 
         List<RecommendCourse> courses = recommendService.readCsv(filePath);
-        return recommendService.getCoursesByUserJob(userId, courses);
+        return recommendService.getCoursesByUserJob(studentId, courses);
     }
 
     @Operation(summary = "사용자 직무 기반 가장 높은 일치율 강의 추천", description = "사용자가 설정한 직무에 맞는 가장 높은 일치율을 가진 강의를 추천합니다.")
     @GetMapping("/topMatchCourseByUserJob")
     public Optional<RecommendCourse> getTopMatchCourseByUserJob(
             @Parameter(description = "사용자 ID", required = true)
-            @RequestParam String userId,
+            @RequestParam String studentId,
             @RequestParam String filePath) {
 
         List<RecommendCourse> courses = recommendService.readCsv(filePath);
-        return recommendService.getTopMatchCourseByUserJob(userId, courses);
+        return recommendService.getTopMatchCourseByUserJob(studentId, courses);
     }
 }

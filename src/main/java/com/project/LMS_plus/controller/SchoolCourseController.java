@@ -41,12 +41,12 @@ public class SchoolCourseController {
     }
 
     @Operation(summary = "사용자 과목 저장", description = "사용자가 선택한 과목 정보를 저장합니다.")
-    @PostMapping("/save/{userId}")
+    @PostMapping("/save/{studentId}")
     public ResponseEntity<String> saveSchoolCourse(
             @Parameter(description = "저장할 과목 정보") @RequestBody SchoolCourseDto schoolCourseDto,
-            @Parameter(description = "사용자 ID", example = "91913505") @PathVariable String userId) {
+            @Parameter(description = "사용자 ID", example = "91913505") @PathVariable String studentId) {
         try {
-            schoolCourseService.saveSchoolCourse(schoolCourseDto, userId);
+            schoolCourseService.saveSchoolCourse(schoolCourseDto, studentId);
             return ResponseEntity.ok("Course saved successfully");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error saving course: " + e.getMessage());
