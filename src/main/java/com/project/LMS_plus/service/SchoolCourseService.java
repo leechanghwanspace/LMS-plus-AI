@@ -140,9 +140,9 @@ public class SchoolCourseService {
     }
 
     // 사용자가 선택한 과목을 저장
-    public void saveSchoolCourse(SchoolCourseDto schoolCourseDto, String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+    public void saveSchoolCourse(SchoolCourseDto schoolCourseDto, String studentId) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
 
         // SchoolCourse 객체 생성
         SchoolCourse schoolCourse = new SchoolCourse();

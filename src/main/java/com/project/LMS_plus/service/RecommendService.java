@@ -57,19 +57,21 @@ public class RecommendService {
             return 0.0;
         }
     }
+
     // 사용자 직무 기반 강의 추천 메서드
-    public List<RecommendCourse> getCoursesByUserJob(String userId, List<RecommendCourse> courses) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    public List<RecommendCourse> getCoursesByUserJob(String studentId, List<RecommendCourse> courses) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
         Job userJob = user.getJob();
         return courses.stream()
                 .filter(course -> course.getJob() != null && course.getJob().getId().equals(userJob.getId()))
                 .collect(Collectors.toList());
     }
+
     // 가장 높은 일치율을 가진 강의 추천 메서드
-    public Optional<RecommendCourse> getTopMatchCourseByUserJob(String userId, List<RecommendCourse> courses) {
-        return getCoursesByUserJob(userId, courses).stream()
+    public Optional<RecommendCourse> getTopMatchCourseByUserJob(String studentId, List<RecommendCourse> courses) {
+        return getCoursesByUserJob(studentId, courses).stream()
                 .max(Comparator.comparingDouble(RecommendCourse::getMatchRate));
     }
 }

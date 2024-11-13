@@ -37,9 +37,9 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<Board> createBoard(@RequestBody BoardDto.CreateBoardDto boardDto, Authentication authentication) {
         // Spring Security 컨텍스트에서 현재 로그인된 사용자 정보 가져오기
-        String userId = authentication.getName();
+        String studentId = authentication.getName();
 
-        Board board = boardService.createBoard(boardDto, userId);
+        Board board = boardService.createBoard(boardDto, studentId);
         return ResponseEntity.ok(board);
     }
 
@@ -47,9 +47,9 @@ public class BoardController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateBoard(@PathVariable Long id, @RequestBody BoardDto.UpdateBoardDto boardDto, Authentication authentication) {
         // Spring Security 컨텍스트에서 현재 로그인된 사용자 정보 가져오기
-        String userId = authentication.getName();
+        String studentId = authentication.getName();
 
-        boardService.updateBoard(userId, id, boardDto);
+        boardService.updateBoard(studentId, id, boardDto);
         return ResponseEntity.ok().build();
     }
 
@@ -57,7 +57,7 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long id, Authentication authentication) {
         // Spring Security 컨텍스트에서 현재 로그인된 사용자 정보 가져오기
-        String userId = authentication.getName();
+        String studentId = authentication.getName();
 
         // 삭제 로직 실행 (필요시 권한 확인 추가 가능)
         boardService.deleteBoard(id);
