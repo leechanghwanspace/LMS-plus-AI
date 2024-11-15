@@ -1,7 +1,11 @@
 package com.project.LMS_plus.dto;
 
 import com.opencsv.bean.CsvBindByPosition;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class CourseDetailDTO {
     @CsvBindByPosition(position = 0)
     private String subjectCode;
@@ -30,62 +34,6 @@ public class CourseDetailDTO {
         this.rate = rate;
     }
 
-    public String getSubjectCode() {
-        return subjectCode;
-    }
-
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
-    }
-
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public int getCredit() {
-        return credit;
-    }
-
-    public void setCredit(int credit) {
-        this.credit = credit;
-    }
-
-    public String getJob1() {
-        return job1;
-    }
-
-    public void setJob1(String job1) {
-        this.job1 = job1;
-    }
-
-    public String getJob2() {
-        return job2;
-    }
-
-    public void setJob2(String job2) {
-        this.job2 = job2;
-    }
-
-    public String getJob3() {
-        return job3;
-    }
-
-    public void setJob3(String job3) {
-        this.job3 = job3;
-    }
-
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
-
     @Override
     public String toString() {
         return "CourseDetailDTO{" +
@@ -98,4 +46,5 @@ public class CourseDetailDTO {
                 ", security='" + rate + '\'' +
                 '}';
     }
+
 }

@@ -7,7 +7,9 @@ import com.project.LMS_plus.service.SchoolCourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,5 +67,21 @@ public class SchoolCourseController {
     public ResponseEntity<List<CourseContentDto>> getCourseContentsByMajorAndCourseName(@PathVariable String majorType, @PathVariable String courseName) {
         List<CourseContentDto> courses = schoolCourseService.loadCoursesContentByMajorAndCourseName(majorType, courseName);
         return ResponseEntity.ok(courses);
+    }
+    @Operation(summary = "과목명으로 저장", description = "특정 전공의 CSV 파일을 읽어와 해당 전공의 과목 데이터를 저장합니다.")
+    @PostMapping("/register")
+    public ResponseEntity<String> registerCourseByName(
+            @RequestParam String studentId,
+            @RequestParam String courseName,
+            @RequestParam String fileName) {
+        try {
+            schoolCourseService.saveSchoolCourseByName(studentId, courseName, fileName);
+            return ResponseEntity.ok("과목이 성공적으로 등록되었습니다.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("과목 등록 중 오류가 발생했습니다: " + e.getMessage());
+        }
     }
 }
