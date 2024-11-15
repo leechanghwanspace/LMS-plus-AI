@@ -1,6 +1,9 @@
 package com.project.LMS_plus.config;
 
+import com.project.LMS_plus.entity.User;
+import com.project.LMS_plus.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,10 +13,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
+
 import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    private UserRepository userRepository; // UserService 대신 UserRepository 사용
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -70,22 +77,19 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // 로그인 성공 핸들러
     public AuthenticationSuccessHandler successHandler() {
         return (request, response, authentication) -> {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
 
-            // 인증된 사용자 정보에서 studentID 가져오기
-            String studentId = authentication.getName(); // studentId = 회원가입시 기입한 8자리 학번
+            String studentId = authentication.getName();
+            User user = userRepository.findByStudentId(studentId)
+                    .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-            // JSON 값에 학번 반환값 추가
-            response.getWriter().write("{\"message\":\"로그인 성공\", \"studentID\":\"" + studentId + "\"}");
+            response.getWriter().write("{\"message\":\"로그인 성공\", \"studentId\":\"" + studentId + "\", \"username\":\"" + user.getName() + "\"}");
         };
     }
 
-
-    // 로그인 실패 핸들러
     @Bean
     public AuthenticationFailureHandler failureHandler() {
         return (request, response, exception) -> {
