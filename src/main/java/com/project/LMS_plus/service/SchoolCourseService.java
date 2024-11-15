@@ -137,80 +137,25 @@ public class SchoolCourseService {
         }
     }
 
-    // 사용자가 선택한 과목을 저장
-    public void saveSchoolCourse(CourseDetailDTO courseDetailDTO, String studentId) {
+    public void saveSchoolCourse(String studentId, List<CourseDetailDTO> courseDetails) {
+        // 사용자 조회
         User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
 
-        // SchoolCourse 객체 생성
-        SchoolCourse schoolCourse = new SchoolCourse();
-        schoolCourse.setCourseId(courseDetailDTO.getSubjectCode());
-        schoolCourse.setCourseName(courseDetailDTO.getSubjectName());
-        schoolCourse.setGradeScore(courseDetailDTO.getCredit());
-        schoolCourse.setJob1(courseDetailDTO.getJob1());
-        schoolCourse.setJob2(courseDetailDTO.getJob2());
-        schoolCourse.setJob3(courseDetailDTO.getJob3());
-        schoolCourse.setCorrectRate(courseDetailDTO.getRate());
+        // 과목 정보 저장
+        for (CourseDetailDTO courseDetail : courseDetails) {
+            SchoolCourse schoolCourse = new SchoolCourse();
+            schoolCourse.setCourseId(courseDetail.getSubjectCode());
+            schoolCourse.setCourseName(courseDetail.getSubjectName());
+            schoolCourse.setGradeScore(courseDetail.getCredit()); // 학점 정보를 GradeScore에 설정
+            schoolCourse.setJob1(courseDetail.getJob1());
+            schoolCourse.setJob2(courseDetail.getJob2());
+            schoolCourse.setJob3(courseDetail.getJob3());
+            schoolCourse.setCorrectRate(courseDetail.getRate());
+            schoolCourse.setUser(user);
 
-        // User와의 관계 설정 (SchoolCourse에 대한 User 정보)
-        schoolCourse.setUser(user);
-
-        // SchoolCourse 저장
-        schoolCourseRepository.save(schoolCourse);
-    }
-
-    // 과목 이름으로 CSV 파일에서 CourseDetailDTO 조회
-    private CourseDetailDTO findByCourseName(String courseName, String majorName) {
-        String csvFilePath = BASE_CSV_PATH + "/" + majorName + "_courses_1.csv";  // 파일명 지정
-        System.out.println("전공별 CSV 파일 경로: " + csvFilePath);
-
-        File csvFile = new File(csvFilePath);
-
-        if (!csvFile.exists()) {
-            System.err.println("CSV 파일을 찾을 수 없습니다: " + csvFilePath);
-            return null;
+            // 과목 저장
+            schoolCourseRepository.save(schoolCourse);
         }
-
-        try (FileReader reader = new FileReader(csvFile)) {
-            List<CourseDetailDTO> courses = new CsvToBeanBuilder<CourseDetailDTO>(reader)
-                    .withType(CourseDetailDTO.class)
-                    .withSkipLines(1)
-                    .build()
-                    .parse();
-
-            // 해당 과목 이름을 가진 CourseDetailDTO 객체를 반환
-            for (CourseDetailDTO course : courses) {
-                if (course.getSubjectName().equalsIgnoreCase(courseName)) {
-                    return course;
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("CSV 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
-        }
-        return null;
-    }
-
-
-    // 과목 저장 리스트형태로 과목명 {"", "", ""} 학점 {"", "", "" }
-    public void saveSchoolCourseByNameWithGrade(String studentId, String majorName, String courseName, int gradeScore) {
-        User user = userRepository.findById(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
-
-        CourseDetailDTO course = findByCourseName(courseName, majorName);
-        if (course == null) {
-            throw new EntityNotFoundException("Course not found with name: " + courseName);
-        }
-
-        SchoolCourse schoolCourse = new SchoolCourse();
-        schoolCourse.setCourseId(course.getSubjectCode());
-        schoolCourse.setCourseName(course.getSubjectName());
-        schoolCourse.setGradeScore(gradeScore);
-        schoolCourse.setJob1(course.getJob1());
-        schoolCourse.setJob2(course.getJob2());
-        schoolCourse.setJob3(course.getJob3());
-        schoolCourse.setCorrectRate(course.getRate());
-        schoolCourse.setUser(user);
-
-        schoolCourseRepository.save(schoolCourse);
     }
 }
