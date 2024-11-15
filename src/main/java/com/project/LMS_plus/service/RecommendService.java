@@ -74,4 +74,24 @@ public class RecommendService {
         return getCoursesByUserJob(studentId, courses).stream()
                 .max(Comparator.comparingDouble(RecommendCourse::getMatchRate));
     }
+
+//    public String3. 전공에 맞는 과목 추천
+//전공과 직무에 맞는 과목을 추천할 수 있습니다. 예를 들어, majorNames와 일치하는 직무가 있는 과목을 찾아 추천할 수 있습니다.
+//
+//java
+//코드 복사
+//public List<Course> recommendCoursesByMajor(List<String> majorNames) {
+//    List<Course> recommendedCourses = new ArrayList<>();
+//    for (Course course : allCourses) {
+//        for (String majorName : majorNames) {
+//            // 예: majorName이 직무명과 일치하는 과목 찾기
+//            if (course.getJobTitles().contains(majorName)) {
+//                recommendedCourses.add(course);
+//            }
+//        }
+//    }
+//    // 일치율로 정렬
+//    recommendedCourses.sort(Comparator.comparingDouble(Course::getMatchRate).reversed());
+//    return recommendedCourses;
+//}
 }
