@@ -1,7 +1,11 @@
 package com.project.LMS_plus.dto;
 
 import com.opencsv.bean.CsvBindByPosition;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class CourseContentDto {
 
     @CsvBindByPosition(position = 0)
@@ -19,38 +23,6 @@ public class CourseContentDto {
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
         this.credit = credit;
-        this.weeklyContent = weeklyContent;
-    }
-
-    public String getSubjectCode() {
-        return subjectCode;
-    }
-
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
-    }
-
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public int getCredit() {
-        return credit;
-    }
-
-    public void setCredit(int credit) {
-        this.credit = credit;
-    }
-
-    public String getWeeklyContent() {
-        return weeklyContent;
-    }
-
-    public void setWeeklyContent(String weeklyContent) {
         this.weeklyContent = weeklyContent;
     }
 

@@ -163,4 +163,60 @@ public class SchoolCourseService {
         // SchoolCourse 저장
         schoolCourseRepository.save(schoolCourse);
     }
+
+    // 과목명만으로 저장
+    public void saveSchoolCourseByName(String studentId, String courseName, String fileName) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
+
+        // 과목 정보를 CSV 파일에서 조회
+        CourseDetailDTO course = findByCourseName(courseName, fileName);
+        if (course == null) {
+            throw new EntityNotFoundException("Course not found with name: " + courseName);
+        }
+
+        // SchoolCourse 객체 생성 및 데이터 설정
+        SchoolCourse schoolCourse = new SchoolCourse();
+        schoolCourse.setCourseId(course.getSubjectCode());
+        schoolCourse.setCourseName(course.getSubjectName());
+        schoolCourse.setGradeScore(course.getCredit());
+        schoolCourse.setCorrectRate(course.getCredit());
+
+        // User 엔터티 설정
+        schoolCourse.setUser(user);
+
+        // 과목 정보를 저장
+        schoolCourseRepository.save(schoolCourse);
+    }
+
+    // 과목 이름으로 CSV 파일에서 CourseDetailDTO 조회
+    private CourseDetailDTO findByCourseName(String courseName, String fileName) {
+        String csvFilePath = BASE_CSV_PATH + "/" + fileName + "_courses_1.csv";  // 파일명 지정
+        System.out.println("전공별 CSV 파일 경로: " + csvFilePath);
+
+        File csvFile = new File(csvFilePath);
+
+        if (!csvFile.exists()) {
+            System.err.println("CSV 파일을 찾을 수 없습니다: " + csvFilePath);
+            return null;
+        }
+
+        try (FileReader reader = new FileReader(csvFile)) {
+            List<CourseDetailDTO> courses = new CsvToBeanBuilder<CourseDetailDTO>(reader)
+                    .withType(CourseDetailDTO.class)
+                    .withSkipLines(1)
+                    .build()
+                    .parse();
+
+            // 해당 과목 이름을 가진 CourseDetailDTO 객체를 반환
+            for (CourseDetailDTO course : courses) {
+                if (course.getSubjectName().equalsIgnoreCase(courseName)) {
+                    return course;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("CSV 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
+        }
+        return null;
+    }
 }
