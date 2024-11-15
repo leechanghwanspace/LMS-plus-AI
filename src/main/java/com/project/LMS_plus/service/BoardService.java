@@ -36,17 +36,17 @@ public class BoardService {
     }
 
     @Transactional
-    public Board createBoard(BoardDto.CreateBoardDto boardDto, String userId) {
+    public Board createBoard(BoardDto.CreateBoardDto boardDto, String studentId) {
         // 사용자 정보를 조회합니다.
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
 
         // 보드를 생성합니다.
         Board board = new Board();
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
         board.setPostedTime(LocalDateTime.now());
-        board.setWriter(userService.modifyName(userId));
+        board.setWriter(userService.modifyName(studentId));
 
         // 보드를 사용자에게 추가합니다.
         user.addBoard(board);
@@ -56,15 +56,15 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(String userId, Long boardId, BoardDto.UpdateBoardDto boardDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + userId));
+    public void updateBoard(String studentId, Long boardId, BoardDto.UpdateBoardDto boardDto) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + studentId));
 
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found with id: " + boardId));
 
-        if (!board.getUser().getStudentId().equals(userId)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Board does not belong to user with id: " + userId);
+        if (!board.getUser().getStudentId().equals(studentId)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Board does not belong to user with id: " + studentId);
         }
 
         board.setTitle(boardDto.getTitle());

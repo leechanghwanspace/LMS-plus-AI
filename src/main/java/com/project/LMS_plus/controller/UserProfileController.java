@@ -28,4 +28,11 @@ public class UserProfileController {
 
         return ResponseEntity.ok("사용자 정보가 업데이트되었습니다.");
     }
+
+    @GetMapping("/checkInfo/{studentId}")
+    public ResponseEntity<Boolean> checkUserInfo(@PathVariable String studentId) {
+        boolean hasMajorAndGrade = userService.haveMajorAndGrade(studentId);
+
+        return ResponseEntity.ok(hasMajorAndGrade);
+    }
 }

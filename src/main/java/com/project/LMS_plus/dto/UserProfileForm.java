@@ -1,6 +1,7 @@
 package com.project.LMS_plus.dto;
 
 
+import com.project.LMS_plus.entity.Job;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,5 @@ public class UserProfileForm {
     private String major;
     private String doubleMajor;
     private Integer year;
-
-    // Getters and setters
+    private Long jobId;
 }

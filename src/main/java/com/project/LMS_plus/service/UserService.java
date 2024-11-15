@@ -4,13 +4,20 @@ import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.dto.UserProfileForm;
 import com.project.LMS_plus.entity.Department;
+import com.project.LMS_plus.entity.Job;
+import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.DepartmentRepository;
+import com.project.LMS_plus.repository.JobRepository;
 import com.project.LMS_plus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.nio.channels.IllegalChannelGroupException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,7 +31,17 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // 기존 회원가입 로직
+    @Autowired
+    private JobRepository jobRepository;
+
+    // 사용자 조회 메서드 추가 (SecurityConfig에서 사용)
+    @Transactional
+    public User findUserByStudentId(String studentId) {
+        return userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+    }
+
+    // 회원가입 로직
     @Transactional
     public void registerUser(SignUpForm form) {
 
@@ -52,6 +69,9 @@ public class UserService {
         Department department = departmentRepository.findById(form.getDepartmentId())
                 .orElseThrow(() -> new IllegalArgumentException("학부가 존재하지 않습니다."));
 
+        Job job = jobRepository.findById(form.getJobId())
+                .orElseThrow(() -> new IllegalArgumentException("직업이 존재하지 않습니다."));
+
         // 소프트웨어공학부의 경우 전공 선택 검증
         if (department.getId() == 1) { // departmentId가 1인 경우를 소프트웨어공학부로 가정
             if (form.getMajor() == null || (!form.getMajor().equals("게임소프트웨어전공")
@@ -61,40 +81,88 @@ public class UserService {
             }
         }
 
-        // 복수 전공이 있을 경우 '기타'로 설정
-        String doubleMajor = form.getDoubleMajor();
-        if (doubleMajor != null && !doubleMajor.equals("없음")) {
-            doubleMajor = "기타";
-        }
-
         // 사용자 정보 업데이트
         user.setDepartment(department);
         user.setMajor(form.getMajor());
-        user.setDoubleMajor(doubleMajor);
         user.setYear(form.getYear());
+        user.setJob(job);
 
         // 변경된 사용자 정보 저장
         userRepository.save(user);
     }
 
     @Transactional
-    public String modifyName(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    public String modifyName(String studentId) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
-        // 사용자의 이름 가져오기
         String originalName = user.getName();
 
-        // 이름이 null이 아니고 길이가 1 이상인 경우만 처리
         if (originalName != null && originalName.length() > 1) {
-            // 첫 글자를 제외한 나머지 글자를 "xx" 또는 "oo"로 바꾸기
             String modifiedName = originalName.charAt(0) + "X".repeat(originalName.length() - 1);
             return modifiedName;
         } else if (originalName != null && originalName.length() == 1) {
-            // 이름이 한 글자일 경우 그대로 반환
             return originalName;
         } else {
-            throw new IllegalArgumentException("Name is invalid or empty for user with id: " + userId);
+            throw new IllegalArgumentException("Name is invalid or empty for user with id: " + studentId);
         }
     }
+
+    @Transactional
+    public UserDto loadUserInfo(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
+
+        return new UserDto(
+                user.getStudentId(),
+                user.getEmail(),
+                user.getName(),
+                user.getMajor(),
+                user.getYear(),
+                user.getDepartment().getName(),
+                user.getJob()
+        );
+    }
+
+    @Transactional
+    public UserDto loadUserSchoolCourseInfo(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
+
+        return new UserDto(
+                user.getStudentId(),
+                user.getEmail(),
+                user.getName(),
+                user.getMajor(),
+                user.getYear(),
+                user.getDepartment().getName(),
+                user.getJob(),
+                user.getSchoolCourses()
+        );
+    }
+
+    @Transactional
+    public List<SchoolCourse> loadOnlyUserSchoolCourse(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
+
+        return user.getSchoolCourses();
+    }
+
+    @Transactional
+    public boolean haveMajorAndGrade(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + studentId));
+
+        return user.getMajor() != null && user.getDepartment() != null && user.getYear() != null && user.getJob() != null;
+    }
+
+    @Transactional
+    public boolean haveSchoolSubject(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + studentId));
+
+        return user.getSchoolCourses() != null;
+    }
+
 }

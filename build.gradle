@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
 	// Spring Boot 주요 기능
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -55,8 +56,16 @@ dependencies {
 	//AWS 배포 관련 의존성, S3 사용시 (Bucket, Object 추가) => 미사용시 추후 의존성 제거
 	implementation 'software.amazon.awssdk:s3:2.20.0'
 	implementation 'software.amazon.awssdk:auth:2.20.0'
-}
 
-tasks.named('test') {
+	// csv, 파일 읽어오기
+	implementation 'com.opencsv:opencsv:5.5.2'
+
+	//Swagger UI를 통해 API 인터페이스 제공
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+
+
+	tasks.named('test') {
 	useJUnitPlatform()
+	}
 }
