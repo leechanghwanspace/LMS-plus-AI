@@ -1,10 +1,8 @@
 package com.project.LMS_plus.service;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.project.LMS_plus.dto.CourseContentDto;
-import com.project.LMS_plus.dto.CourseDetailDTO;
-import com.project.LMS_plus.dto.SchoolCourseDto;
-import com.project.LMS_plus.entity.Job;
+import com.project.LMS_plus.dto.schoolcourse.CourseContentDto;
+import com.project.LMS_plus.dto.schoolcourse.CourseDetailDTO;
 import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.JobRepository;
@@ -140,58 +138,30 @@ public class SchoolCourseService {
     }
 
     // 사용자가 선택한 과목을 저장
-    public void saveSchoolCourse(SchoolCourseDto schoolCourseDto, String studentId) {
+    public void saveSchoolCourse(CourseDetailDTO courseDetailDTO, String studentId) {
         User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
 
         // SchoolCourse 객체 생성
         SchoolCourse schoolCourse = new SchoolCourse();
-        schoolCourse.setCourseId(schoolCourseDto.getCourseId());
-        schoolCourse.setCourseName(schoolCourseDto.getCourseName());
-        schoolCourse.setGradeScore(schoolCourseDto.getGradeScore());
-        schoolCourse.setCorrectRate(schoolCourseDto.getCorrectRate());
-
-        // 직무 정보 설정
-        Job job = jobRepository.findById(schoolCourseDto.getJobId()).orElse(null);
-        if (job != null) {
-            schoolCourse.setJob(job);  // Job 정보 설정
-        }
+        schoolCourse.setCourseId(courseDetailDTO.getSubjectCode());
+        schoolCourse.setCourseName(courseDetailDTO.getSubjectName());
+        schoolCourse.setGradeScore(courseDetailDTO.getCredit());
+        schoolCourse.setJob1(courseDetailDTO.getJob1());
+        schoolCourse.setJob2(courseDetailDTO.getJob2());
+        schoolCourse.setJob3(courseDetailDTO.getJob3());
+        schoolCourse.setCorrectRate(courseDetailDTO.getRate());
 
         // User와의 관계 설정 (SchoolCourse에 대한 User 정보)
-        schoolCourse.setUser(user); // 한 사용자(User)가 여러 과목을 수강할 수 있도록 설정
+        schoolCourse.setUser(user);
 
         // SchoolCourse 저장
         schoolCourseRepository.save(schoolCourse);
     }
 
-    // 과목명만으로 저장
-    public void saveSchoolCourseByName(String studentId, String courseName, String fileName) {
-        User user = userRepository.findById(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
-
-        // 과목 정보를 CSV 파일에서 조회
-        CourseDetailDTO course = findByCourseName(courseName, fileName);
-        if (course == null) {
-            throw new EntityNotFoundException("Course not found with name: " + courseName);
-        }
-
-        // SchoolCourse 객체 생성 및 데이터 설정
-        SchoolCourse schoolCourse = new SchoolCourse();
-        schoolCourse.setCourseId(course.getSubjectCode());
-        schoolCourse.setCourseName(course.getSubjectName());
-        schoolCourse.setGradeScore(course.getCredit());
-        schoolCourse.setCorrectRate(course.getCredit());
-
-        // User 엔터티 설정
-        schoolCourse.setUser(user);
-
-        // 과목 정보를 저장
-        schoolCourseRepository.save(schoolCourse);
-    }
-
     // 과목 이름으로 CSV 파일에서 CourseDetailDTO 조회
-    private CourseDetailDTO findByCourseName(String courseName, String fileName) {
-        String csvFilePath = BASE_CSV_PATH + "/" + fileName + "_courses_1.csv";  // 파일명 지정
+    private CourseDetailDTO findByCourseName(String courseName, String majorName) {
+        String csvFilePath = BASE_CSV_PATH + "/" + majorName + "_courses_1.csv";  // 파일명 지정
         System.out.println("전공별 CSV 파일 경로: " + csvFilePath);
 
         File csvFile = new File(csvFilePath);
@@ -218,5 +188,29 @@ public class SchoolCourseService {
             System.err.println("CSV 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
         }
         return null;
+    }
+
+
+    // 과목 저장 리스트형태로 과목명 {"", "", ""} 학점 {"", "", "" }
+    public void saveSchoolCourseByNameWithGrade(String studentId, String majorName, String courseName, int gradeScore) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
+
+        CourseDetailDTO course = findByCourseName(courseName, majorName);
+        if (course == null) {
+            throw new EntityNotFoundException("Course not found with name: " + courseName);
+        }
+
+        SchoolCourse schoolCourse = new SchoolCourse();
+        schoolCourse.setCourseId(course.getSubjectCode());
+        schoolCourse.setCourseName(course.getSubjectName());
+        schoolCourse.setGradeScore(gradeScore);
+        schoolCourse.setJob1(course.getJob1());
+        schoolCourse.setJob2(course.getJob2());
+        schoolCourse.setJob3(course.getJob3());
+        schoolCourse.setCorrectRate(course.getRate());
+        schoolCourse.setUser(user);
+
+        schoolCourseRepository.save(schoolCourse);
     }
 }

@@ -15,9 +15,11 @@ public class SchoolCourse {
 
     private String courseName;
 
-    @ManyToOne
-    @JoinColumn(name = "job_id")
-    private Job job;
+    private String job1;
+
+    private String job2;
+
+    private String job3;
 
     private int gradeScore;
 

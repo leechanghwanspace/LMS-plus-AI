@@ -1,4 +1,4 @@
-package com.project.LMS_plus.dto;
+package com.project.LMS_plus.dto.schoolcourse;
 
 import com.opencsv.bean.CsvBindByPosition;
 import lombok.Getter;

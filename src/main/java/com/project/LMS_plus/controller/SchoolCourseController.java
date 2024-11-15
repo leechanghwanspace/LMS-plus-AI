@@ -1,8 +1,8 @@
 package com.project.LMS_plus.controller;
 
-import com.project.LMS_plus.dto.CourseContentDto;
-import com.project.LMS_plus.dto.CourseDetailDTO;
-import com.project.LMS_plus.dto.SchoolCourseDto;
+import com.project.LMS_plus.dto.schoolcourse.CourseBatchRequest;
+import com.project.LMS_plus.dto.schoolcourse.CourseContentDto;
+import com.project.LMS_plus.dto.schoolcourse.CourseDetailDTO;
 import com.project.LMS_plus.service.SchoolCourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,10 +45,10 @@ public class SchoolCourseController {
     @Operation(summary = "사용자 과목 저장", description = "사용자가 선택한 과목 정보를 저장합니다.")
     @PostMapping("/save/{studentId}")
     public ResponseEntity<String> saveSchoolCourse(
-            @Parameter(description = "저장할 과목 정보") @RequestBody SchoolCourseDto schoolCourseDto,
+            @Parameter(description = "저장할 과목 정보") @RequestBody CourseDetailDTO courseDetailDTO,
             @Parameter(description = "사용자 ID", example = "91913505") @PathVariable String studentId) {
         try {
-            schoolCourseService.saveSchoolCourse(schoolCourseDto, studentId);
+            schoolCourseService.saveSchoolCourse(courseDetailDTO, studentId);
             return ResponseEntity.ok("Course saved successfully");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error saving course: " + e.getMessage());
@@ -68,15 +68,28 @@ public class SchoolCourseController {
         List<CourseContentDto> courses = schoolCourseService.loadCoursesContentByMajorAndCourseName(majorType, courseName);
         return ResponseEntity.ok(courses);
     }
-    @Operation(summary = "과목명으로 저장", description = "특정 전공의 CSV 파일을 읽어와 해당 전공의 과목 데이터를 저장합니다.")
-    @PostMapping("/register")
-    public ResponseEntity<String> registerCourseByName(
-            @RequestParam String studentId,
-            @RequestParam String courseName,
-            @RequestParam String fileName) {
+
+
+    @PostMapping("/register-batch")
+    public ResponseEntity<String> registerCoursesBatch(@RequestBody CourseBatchRequest request) {
         try {
-            schoolCourseService.saveSchoolCourseByName(studentId, courseName, fileName);
-            return ResponseEntity.ok("과목이 성공적으로 등록되었습니다.");
+            String studentId = request.getStudentId();
+
+            List<String> courseNames = request.getCourseName();
+            List<Integer> courseNameList = request.getGradeScore();
+            String majorName = request.getMajorName();
+
+            if (courseNames.size() != courseNameList.size()) {
+                return ResponseEntity.badRequest().body("과목과 학점의 개수가 일치하지 않습니다.");
+            }
+
+            for (int i = 0; i < courseNames.size(); i++) {
+                schoolCourseService.saveSchoolCourseByNameWithGrade(
+                        studentId, majorName, courseNames.get(i) , courseNameList.get(i)
+                );
+            }
+
+            return ResponseEntity.ok("모든 과목이 성공적으로 등록되었습니다.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
