@@ -12,9 +12,10 @@ public class CourseDetailDTO {
     @CsvBindByPosition(position = 1)
     private String courseName;
     @CsvBindByPosition(position = 2)
-    private int gradeScore;
-    @CsvBindByPosition(position = 3)
     private String courseDetails;
+    @CsvBindByPosition(position = 3)
+    private int gradeScore;
+
 
     public CourseDetailDTO() {}
 

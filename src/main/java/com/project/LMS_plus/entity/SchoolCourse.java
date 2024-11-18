@@ -20,11 +20,12 @@ public class SchoolCourse {
     @Column(nullable = false)
     private String courseName;
 
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String courseDetails;
 
     @Column(nullable = false)
     private int gradeScore;
+
 
     @OneToMany(mappedBy = "schoolCourse", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

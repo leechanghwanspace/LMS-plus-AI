@@ -126,6 +126,7 @@ public class SchoolCourseService {
                 SchoolCourse schoolCourse = new SchoolCourse();
                 schoolCourse.setCourseId(courseDetail.getCourseId());
                 schoolCourse.setCourseName(courseDetail.getCourseName());
+                schoolCourse.setCourseDetails(courseDetail.getCourseDetails());
                 schoolCourse.setGradeScore(courseDetail.getGradeScore());
 
                 schoolCourseRepository.save(schoolCourse); // 데이터베이스에 저장
