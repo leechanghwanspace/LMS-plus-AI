@@ -6,10 +6,8 @@ import com.project.LMS_plus.dto.schoolcourse.CourseDetailDTO;
 import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.SchoolCourseWeekContents;
 import com.project.LMS_plus.entity.User;
-import com.project.LMS_plus.repository.JobRepository;
-import com.project.LMS_plus.repository.SchoolCourseRepository;
-import com.project.LMS_plus.repository.SchoolCourseWeekContentsRepository;
-import com.project.LMS_plus.repository.UserRepository;
+import com.project.LMS_plus.entity.UserCourse;
+import com.project.LMS_plus.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,16 +24,18 @@ public class SchoolCourseService {
     private final UserRepository userRepository;
     private final SchoolCourseRepository schoolCourseRepository;
     private final SchoolCourseWeekContentsRepository schoolCourseWeekContentsRepository;
+    private final UserCourseRepository userCourseRepository;
 
     @Autowired
-    public SchoolCourseService(UserRepository userRepository, SchoolCourseRepository schoolCourseRepository, JobRepository jobRepository, SchoolCourseWeekContentsRepository schoolCourseWeekContentsRepository) {
+    public SchoolCourseService(UserRepository userRepository, SchoolCourseRepository schoolCourseRepository, JobRepository jobRepository, SchoolCourseWeekContentsRepository schoolCourseWeekContentsRepository, UserCourseRepository userCourseRepository) {
         this.userRepository = userRepository;
         this.schoolCourseRepository = schoolCourseRepository;
         this.schoolCourseWeekContentsRepository = schoolCourseWeekContentsRepository;
+        this.userCourseRepository = userCourseRepository;
     }
 
     private static final String BASE_CSV_PATH =
-            "C:\\Project\\RedPenLMS-BE\\src\\main\\resources\\csv";
+            "D:\\webproject\\RedPenLMS-BE\\src\\main\\resources\\csv";
 
     // CSV 파일 로드 메서드
     private Set<CourseDetailDTO> loadCourseFromFile(String filePath) {
@@ -202,11 +202,11 @@ public class SchoolCourseService {
             SchoolCourse schoolCourse = schoolCourseRepository.findByCourseName(courseName)
                     .orElseThrow(() -> new EntityNotFoundException("Course not found with name: " + courseName));
 
-            // 사용자의 과목 리스트에 추가
-            schoolCourses.add(schoolCourse);
+            // 사용자의 과목 목록에 UserCourse 객체 추가
+            user.addSchoolCourse(schoolCourse); 
 
-            // 사용자의 과목 목록에 추가
-            user.addSchoolCourse(schoolCourse);  // User 클래스에서 addSchoolCourse 메서드로 과목 추가
+            // 과목을 반환 리스트에 추가
+            schoolCourses.add(schoolCourse);
         }
 
         // 사용자 정보 저장
@@ -217,17 +217,19 @@ public class SchoolCourseService {
 
     // 사용자가 선택한 과목에 대한 주차별 학습 내용 반환
     public Map<String, List<SchoolCourseWeekContents>> getCourseContentsForUser(String studentId) {
-        // 사용자가 수강한 과목 조회
-        List<SchoolCourse> courses = schoolCourseRepository.findByUser_StudentId(studentId);
+        // 사용자가 수강한 과목을 UserCourse를 통해 조회
+        List<UserCourse> userCourses = userCourseRepository.findByUser_StudentId(studentId);
 
         Map<String, List<SchoolCourseWeekContents>> courseContents = new HashMap<>();
 
-        // 각 과목에 대해 주차별 학습 내용 가져오기
-        for (SchoolCourse course : courses) {
+        // 각 UserCourse에 대해 주차별 학습 내용 가져오기
+        for (UserCourse userCourse : userCourses) {
+            SchoolCourse course = userCourse.getSchoolCourse();
             List<SchoolCourseWeekContents> weekContents = schoolCourseWeekContentsRepository.findBySchoolCourse(course);
             courseContents.put(course.getCourseName(), weekContents);  // 과목명으로 학습 내용 저장
         }
 
         return courseContents;
     }
+
 }

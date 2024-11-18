@@ -14,6 +14,4 @@ public interface SchoolCourseRepository extends JpaRepository<SchoolCourse, Long
 
     Optional<SchoolCourse> findByCourseName(String courseName);  // 과목명으로 과목 조회
 
-    List<SchoolCourse> findByUser_StudentId(String studentId);
-
 }

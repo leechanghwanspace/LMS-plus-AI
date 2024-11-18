@@ -3,10 +3,7 @@ package com.project.LMS_plus.service;
 import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.dto.UserProfileForm;
-import com.project.LMS_plus.entity.Department;
-import com.project.LMS_plus.entity.Job;
-import com.project.LMS_plus.entity.SchoolCourse;
-import com.project.LMS_plus.entity.User;
+import com.project.LMS_plus.entity.*;
 import com.project.LMS_plus.repository.DepartmentRepository;
 import com.project.LMS_plus.repository.JobRepository;
 import com.project.LMS_plus.repository.UserRepository;
@@ -112,6 +109,7 @@ public class UserService {
         User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
+        // UserDto 생성 시, userCourses 정보를 포함하도록 수정
         return new UserDto(
                 user.getStudentId(),
                 user.getEmail(),
@@ -120,14 +118,17 @@ public class UserService {
                 user.getYear(),
                 user.getDepartment().getName(),
                 user.getJob(),
-                user.getSchoolCourses());
+                user.getUserCourses() // UserCourse 리스트로 수정
+        );
     }
+
 
     @Transactional
     public UserDto loadUserSchoolCourseInfo(String studentId) {
         User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
+        // UserDto 생성 시, userCourses 정보를 포함하도록 수정
         return new UserDto(
                 user.getStudentId(),
                 user.getEmail(),
@@ -136,16 +137,17 @@ public class UserService {
                 user.getYear(),
                 user.getDepartment().getName(),
                 user.getJob(),
-                user.getSchoolCourses()
+                user.getUserCourses() // UserCourse 리스트로 수정
         );
     }
 
+
     @Transactional
-    public Set<SchoolCourse> loadOnlyUserSchoolCourse(String studentId) {
+    public List<UserCourse> loadOnlyUserSchoolCourse(String studentId) {
         User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
-        return user.getSchoolCourses();
+        return user.getUserCourses();
     }
 
     @Transactional
@@ -161,9 +163,7 @@ public class UserService {
         User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with student ID: " + studentId));
 
-        return user.getSchoolCourses() != null;
+        return user.getUserCourses() != null;
     }
-
-
 
 }

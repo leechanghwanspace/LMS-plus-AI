@@ -33,7 +33,6 @@ public class User {
     @Column
     private Integer year; // 학년
 
-
     @ManyToOne
     @JoinColumn(name = "job_id")  // 외래 키로 `Job` 엔티티를 참조
     private Job job;          // 사용자가 희망하는 직업군
@@ -42,14 +41,14 @@ public class User {
     @JoinColumn(name = "department_id")  // User 테이블에 외래 키로 추가됨
     private Department department;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Board> boards = new ArrayList<>();
 
-    // 교과목
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    // 사용자별 수강 정보를 저장
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<SchoolCourse> schoolCourses = new HashSet<>(); // 사용자가 수강하는 과목들
+    private List<UserCourse> userCourses = new ArrayList<>();
 
     // 기본 생성자
     public User() {}
@@ -71,10 +70,15 @@ public class User {
     }
 
     public void addSchoolCourse(SchoolCourse schoolCourse) {
-        if (this.schoolCourses == null) {
-            this.schoolCourses = new HashSet<>();
+        if (this.userCourses == null) {
+            this.userCourses = new ArrayList<>();
         }
-        this.schoolCourses.add(schoolCourse);
-        schoolCourse.setUser(this);  // 관계 설정
+
+        // 새로운 UserCourse 객체 생성
+        UserCourse userCourse = new UserCourse(this, schoolCourse );
+
+        // User의 userCourses 리스트에 추가
+        this.userCourses.add(userCourse);
     }
 }
+

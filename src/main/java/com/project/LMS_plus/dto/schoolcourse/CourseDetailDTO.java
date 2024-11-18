@@ -13,13 +13,15 @@ public class CourseDetailDTO {
     private String courseName;
     @CsvBindByPosition(position = 2)
     private int gradeScore;
-
+    @CsvBindByPosition(position = 3)
+    private String courseDetails;
 
     public CourseDetailDTO() {}
 
-    public CourseDetailDTO(String courseId, String courseName, int gradeScore) {
+    public CourseDetailDTO(String courseId, String courseName, String courseDetails,int gradeScore) {
         this.courseId = courseId;
         this.courseName = courseName;
+        this.courseDetails = courseDetails;
         this.gradeScore = gradeScore;
 
     }
@@ -29,6 +31,7 @@ public class CourseDetailDTO {
         return "CourseDetailDTO{" +
                 "courseId='" + courseId + '\'' +
                 ", courseName='" + courseName + '\'' +
+                ", courseDetails='" + courseDetails + '\'' +
                 ", gradeScore=" + gradeScore +
                 '}';
     }
