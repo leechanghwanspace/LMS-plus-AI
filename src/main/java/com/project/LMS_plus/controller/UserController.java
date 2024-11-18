@@ -3,7 +3,9 @@ package com.project.LMS_plus.controller;
 import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.entity.SchoolCourse;
+import com.project.LMS_plus.entity.SchoolCourseWeekContents;
 import com.project.LMS_plus.entity.User;
+import com.project.LMS_plus.service.SchoolCourseService;
 import com.project.LMS_plus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -25,7 +29,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private SchoolCourseService schoolCourseService;
 
 
     /**
@@ -91,12 +96,28 @@ public class UserController {
 
     @Operation(summary = "사용자에 수강과목 데이터가 있으면 불러오기", description = "특정 사용자 ID를 사용해 수강중인 교과목을 불러옵니다.")
     @GetMapping("/have/schoolCourse/{studentId}")
-    public ResponseEntity<List<SchoolCourse>> userHaveSchoolCourse(@PathVariable String studentId){
+    public ResponseEntity<Set<SchoolCourse>> userHaveSchoolCourse(@PathVariable String studentId){
         if(userService.haveSchoolSubject(studentId)){
-            List<SchoolCourse> userSchoolCourse = userService.loadOnlyUserSchoolCourse(studentId);
+            Set<SchoolCourse> userSchoolCourse = userService.loadOnlyUserSchoolCourse(studentId);
 
             return ResponseEntity.ok(userSchoolCourse);
         }
         return ResponseEntity.badRequest().body(null);
+    }
+
+    @Operation(summary = "학생 ID로 과목 저장")
+    @PostMapping("/{studentId}")
+    public ResponseEntity<Set<SchoolCourse>> saveSchoolCourse(@PathVariable String studentId, @RequestBody Set<String> courseNames) {
+        // 과목 저장 서비스 호출
+        Set<SchoolCourse> savedCourses = schoolCourseService.saveSchoolCoursesForUser(studentId, courseNames);
+        // 저장된 과목들 반환
+        return ResponseEntity.ok(savedCourses);
+    }
+
+    @GetMapping("/{studentId}/contents")
+    public ResponseEntity<Map<String, List<SchoolCourseWeekContents>>> getCourseContentsForUser(
+            @PathVariable String studentId) {
+        Map<String, List<SchoolCourseWeekContents>> courseContents = schoolCourseService.getCourseContentsForUser(studentId);
+        return ResponseEntity.ok(courseContents);
     }
 }
