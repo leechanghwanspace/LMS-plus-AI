@@ -68,4 +68,11 @@ public class SchoolCourseController {
                     .body("과목 등록 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
+
+    @Operation(summary = "사용자가 저장한 과목 주차별 학습내용 보여주기", description = "")
+    @GetMapping("/{studentId}/{majorType}")
+    public List<CourseContentDto> getCourseContentsForStudent(@PathVariable String studentId,
+                                                              @PathVariable String majorType) {
+        return schoolCourseService.getUserCourseContentByCourseId(studentId, majorType);
+    }
 }

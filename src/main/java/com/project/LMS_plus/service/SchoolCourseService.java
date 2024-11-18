@@ -35,7 +35,7 @@ public class SchoolCourseService {
     }
 
     private static final String BASE_CSV_PATH =
-            "D:\\webproject\\RedPenLMS-BE\\src\\main\\resources\\csv";
+            "C:\\Project\\RedPenLMS-BE\\src\\main\\resources\\csv";
 
     // CSV 파일 로드 메서드
     private List<CourseDetailDTO> loadCourseFromFile(String filePath) {
@@ -129,7 +129,7 @@ public class SchoolCourseService {
 
             // courseName에 맞는 데이터 필터링
             return courses.stream()
-                    .filter(course -> course.getSubjectName().equalsIgnoreCase(courseName))  // 대소문자 구분 없이 검색
+                    .filter(course -> course.getCourseId().equalsIgnoreCase(courseName))  // 대소문자 구분 없이 검색
                     .collect(Collectors.toList());
         } catch (IOException e) {
             System.err.println("CSV 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
@@ -145,17 +145,72 @@ public class SchoolCourseService {
         // 과목 정보 저장
         for (CourseDetailDTO courseDetail : courseDetails) {
             SchoolCourse schoolCourse = new SchoolCourse();
-            schoolCourse.setCourseId(courseDetail.getSubjectCode());
-            schoolCourse.setCourseName(courseDetail.getSubjectName());
-            schoolCourse.setGradeScore(courseDetail.getCredit()); // 학점 정보를 GradeScore에 설정
-            schoolCourse.setJob1(courseDetail.getJob1());
-            schoolCourse.setJob2(courseDetail.getJob2());
-            schoolCourse.setJob3(courseDetail.getJob3());
-            schoolCourse.setCorrectRate(courseDetail.getRate());
+            schoolCourse.setCourseId(courseDetail.getCourseId());
+            schoolCourse.setCourseName(courseDetail.getCourseName());
+            schoolCourse.setGradeScore(courseDetail.getGradeScore()); // 학점 정보를 GradeScore에 설정
             schoolCourse.setUser(user);
 
             // 과목 저장
             schoolCourseRepository.save(schoolCourse);
         }
     }
+
+    public List<CourseContentDto> getCourseContentByCourseId(String studentId, String majorType) {
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
+
+        List<SchoolCourse> schoolCourses = user.getSchoolCourses();
+        List<String> courseIds = schoolCourses.stream()
+                .map(SchoolCourse::getCourseId)
+                .collect(Collectors.toList());
+
+        // Load courses content using your existing method
+        List<CourseContentDto> courseContents = loadCoursesContentsByMajor(majorType);
+
+        // Filter the loaded course content based on the course IDs the user is enrolled in
+        List<CourseContentDto> filteredContents = courseContents.stream()
+                .filter(content -> courseIds.contains(content.getCourseId()))
+                .collect(Collectors.toList());
+
+        // Display or process the filtered course contents
+        filteredContents.forEach(content -> {
+            System.out.println("과목코드: " + content.getCourseId() +
+                    ", 과목명: " + content.getCourseName() +
+                    ", 주차: " + content.getWeek() +
+                    ", 주차별 학습내용: " + content.getWeeklyContent());
+        });
+        return courseContents;
+    }
+
+    public List<CourseContentDto> getUserCourseContentByCourseId(String studentId, String majorType) {
+        // Retrieve the user and their associated course IDs
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
+
+        List<SchoolCourse> schoolCourses = user.getSchoolCourses();
+        List<String> courseIds = schoolCourses.stream()
+                .map(SchoolCourse::getCourseId)
+                .collect(Collectors.toList());
+
+        // Debugging: Check if courseIds are correctly fetched
+        System.out.println("User's Course IDs: " + courseIds);
+
+        // Load courses content using your existing method
+        List<CourseContentDto> courseContents = loadCoursesContentsByMajor(majorType);
+
+        // Debugging: Check if courseContents are correctly loaded
+        System.out.println("Loaded Course Contents: " + courseContents);
+
+        // Filter the loaded course content based on the course IDs the user is enrolled in
+        List<CourseContentDto> filteredContents = courseContents.stream()
+                .filter(content -> courseIds.contains(content.getCourseId()))
+                .collect(Collectors.toList());
+
+        // Debugging: Check if filtered contents are correct
+        System.out.println("Filtered Course Contents: " + filteredContents);
+
+        return filteredContents;
+    }
+
+
 }
