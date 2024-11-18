@@ -15,15 +15,9 @@ public class SchoolCourse {
 
     private String courseName;
 
-    private String job1;
-
-    private String job2;
-
-    private String job3;
 
     private int gradeScore;
 
-    private double correctRate;
 
     @ManyToOne
     @JoinColumn(name = "student_id")  // User와의 관계 설정
