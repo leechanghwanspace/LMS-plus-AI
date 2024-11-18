@@ -5,6 +5,7 @@ import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.SchoolCourseWeekContents;
 import com.project.LMS_plus.entity.User;
+import com.project.LMS_plus.entity.UserCourse;
 import com.project.LMS_plus.service.SchoolCourseService;
 import com.project.LMS_plus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -96,9 +97,9 @@ public class UserController {
 
     @Operation(summary = "사용자에 수강과목 데이터가 있으면 불러오기", description = "특정 사용자 ID를 사용해 수강중인 교과목을 불러옵니다.")
     @GetMapping("/have/schoolCourse/{studentId}")
-    public ResponseEntity<Set<SchoolCourse>> userHaveSchoolCourse(@PathVariable String studentId){
+    public ResponseEntity<List<UserCourse>> userHaveSchoolCourse(@PathVariable String studentId){
         if(userService.haveSchoolSubject(studentId)){
-            Set<SchoolCourse> userSchoolCourse = userService.loadOnlyUserSchoolCourse(studentId);
+            List<UserCourse> userSchoolCourse = userService.loadOnlyUserSchoolCourse(studentId);
 
             return ResponseEntity.ok(userSchoolCourse);
         }
