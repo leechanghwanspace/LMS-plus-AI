@@ -1,5 +1,6 @@
 package com.project.LMS_plus.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +19,6 @@ public class SchoolCourseWeekContents {
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "courseId")
+    @JsonIgnore
     private SchoolCourse schoolCourse;  // 부모 엔티티와의 관계 설정
 }
