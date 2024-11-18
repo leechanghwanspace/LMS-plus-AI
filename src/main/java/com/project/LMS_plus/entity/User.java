@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -47,7 +49,7 @@ public class User {
     // 교과목
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<SchoolCourse> schoolCourses = new ArrayList<>();  // User가 여러 SchoolCourse를 가질 수 있게 수정
+    private Set<SchoolCourse> schoolCourses = new HashSet<>(); // 사용자가 수강하는 과목들
 
     // 기본 생성자
     public User() {}
@@ -69,7 +71,10 @@ public class User {
     }
 
     public void addSchoolCourse(SchoolCourse schoolCourse) {
+        if (this.schoolCourses == null) {
+            this.schoolCourses = new HashSet<>();
+        }
         this.schoolCourses.add(schoolCourse);
-        schoolCourse.setUser(this);  // 과목의 사용자 정보를 설정
+        schoolCourse.setUser(this);  // 관계 설정
     }
 }

@@ -15,9 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.channels.IllegalChannelGroupException;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -120,8 +119,8 @@ public class UserService {
                 user.getMajor(),
                 user.getYear(),
                 user.getDepartment().getName(),
-                user.getJob()
-        );
+                user.getJob(),
+                user.getSchoolCourses());
     }
 
     @Transactional
@@ -142,7 +141,7 @@ public class UserService {
     }
 
     @Transactional
-    public List<SchoolCourse> loadOnlyUserSchoolCourse(String studentId) {
+    public Set<SchoolCourse> loadOnlyUserSchoolCourse(String studentId) {
         User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
@@ -164,5 +163,7 @@ public class UserService {
 
         return user.getSchoolCourses() != null;
     }
+
+
 
 }

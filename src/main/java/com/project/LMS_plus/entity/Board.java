@@ -22,11 +22,13 @@ public class Board {
     @JoinColumn(name = "studentId")
     private User user;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Lob  // @Lob 어노테이션을 사용하여 'TEXT' 타입 설정
+    @Column(nullable = false)  // not null로 설정
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String content;
+    @Lob  // @Lob 어노테이션을 사용하여 'TEXT' 타입 설정
+    @Column(nullable = false)  // not null로 설정
+    private String content;  // 게시글 내용
 
     @Column
     private String writer;

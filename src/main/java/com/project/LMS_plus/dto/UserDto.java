@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class UserDto {
     private List<SchoolCourse> schoolCourses;
 
     // 생성자, getter, setter 추가
-    public UserDto(String studentId, String email, String name, String major, Integer year, String departmentName, Job job) {
+    public UserDto(String studentId, String email, String name, String major, Integer year, String departmentName, Job job, Set<SchoolCourse> schoolCourses) {
         this.studentId = studentId;
         this.email = email;
         this.name = name;
