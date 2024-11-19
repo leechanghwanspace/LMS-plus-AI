@@ -121,4 +121,13 @@ public class UserController {
         Map<String, List<SchoolCourseWeekContents>> courseContents = schoolCourseService.getCourseContentsForUser(studentId);
         return ResponseEntity.ok(courseContents);
     }
+    @DeleteMapping("/{studentId}/deleteCourse")
+    public ResponseEntity<String> deleteUserCourse(@PathVariable String studentId, @RequestParam String courseName) {
+        try {
+            String responseMessage = schoolCourseService.deleteUserCourse(studentId, courseName);
+            return ResponseEntity.ok(responseMessage);  // 성공적으로 삭제된 경우 200 OK 응답 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body("Error: " + e.getMessage());  // 에러가 발생한 경우 404 Not Found 응답
+        }
+    }
 }

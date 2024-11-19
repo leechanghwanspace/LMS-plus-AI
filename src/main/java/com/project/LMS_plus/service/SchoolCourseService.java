@@ -35,7 +35,7 @@ public class SchoolCourseService {
     }
 
     private static final String BASE_CSV_PATH =
-            "D:\\webproject\\RedPenLMS-BE\\src\\main\\resources\\csv";
+            "C:\\Project\\RedPenLMS-BE\\src\\main\\resources\\csv";
 
     // CSV 파일 로드 메서드
     private Set<CourseDetailDTO> loadCourseFromFile(String filePath) {
@@ -232,5 +232,31 @@ public class SchoolCourseService {
 
         return courseContents;
     }
+
+    @Transactional
+    public String deleteUserCourse(String studentId, String courseName) {
+        // 사용자 조회
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
+
+        // 과목 조회
+        SchoolCourse schoolCourse = schoolCourseRepository.findByCourseName(courseName)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with name: " + courseName));
+
+        // 사용자가 해당 과목을 수강한 기록을 조회
+        List<UserCourse> userCourses = userCourseRepository.findByUserAndSchoolCourse(user, schoolCourse);
+
+        if (userCourses.isEmpty()) {
+            throw new EntityNotFoundException("User is not enrolled in this course");
+        }
+
+        // 사용자 과목 목록에서 해당 과목 삭제
+        for (UserCourse userCourse : userCourses) {
+            userCourseRepository.delete(userCourse);  // 과목과 사용자 간의 관계 삭제
+        }
+
+        return "Course successfully removed from user's courses";
+    }
+
 
 }
