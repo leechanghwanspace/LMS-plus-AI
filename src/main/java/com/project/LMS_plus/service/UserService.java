@@ -12,8 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -30,12 +32,6 @@ public class UserService {
     @Autowired
     private JobRepository jobRepository;
 
-    // 사용자 조회 메서드 추가 (SecurityConfig에서 사용)
-    @Transactional
-    public User findUserByStudentId(String studentId) {
-        return userRepository.findByStudentId(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-    }
 
     // 회원가입 로직
     @Transactional
@@ -165,5 +161,42 @@ public class UserService {
 
         return user.getUserCourses() != null;
     }
+    @Transactional
+    public List<Map<String, String>> loadUserSchoolCourseNameAndDetails(String studentId) {
+        // 사용자 정보 조회
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
 
+        // UserCourse 리스트에서 courseName과 courseDetails만 추출하여 반환
+        return user.getUserCourses().stream()
+                .map(userCourse -> {
+                    SchoolCourse schoolCourse = userCourse.getSchoolCourse();
+                    Map<String, String> courseInfo = new HashMap<>();
+                    courseInfo.put("courseName", schoolCourse.getCourseName());
+                    courseInfo.put("courseDetails", schoolCourse.getCourseDetails());
+                    return courseInfo;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Map<String, String> loadUserSchoolCourseNameAndDetailsByCourseId(String studentId, String courseId) {
+        // 사용자 정보 조회
+        User user = userRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + studentId));
+
+        // 해당 사용자가 수강한 강의 중 courseId가 일치하는 강의 찾기
+        UserCourse userCourse = user.getUserCourses().stream()
+                .filter(uc -> uc.getSchoolCourse().getCourseId().equals(courseId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Course not found with id: " + courseId));
+
+        // 해당 강의의 courseName과 courseDetails를 Map에 담아서 반환
+        SchoolCourse schoolCourse = userCourse.getSchoolCourse();
+        Map<String, String> courseInfo = new HashMap<>();
+        courseInfo.put("courseName", schoolCourse.getCourseName());
+        courseInfo.put("courseDetails", schoolCourse.getCourseDetails());
+
+        return courseInfo;
+    }
 }

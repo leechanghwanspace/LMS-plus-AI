@@ -4,7 +4,6 @@ import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.SchoolCourseWeekContents;
-import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.entity.UserCourse;
 import com.project.LMS_plus.service.SchoolCourseService;
 import com.project.LMS_plus.service.UserService;
