@@ -1,0 +1,121 @@
+﻿과목명,강사,url
+해커를 위한 iOS 앱 모의 해킹 전문 과정,보안프로젝트,https://www.inflearn.com/course/ios-%EB%AA%A8%EB%B0%94%EC%9D%BC%EC%95%B1-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%9E%85%EB%AC%B8
+Arm 아키텍처와 리눅스 커널 인터페이스 - 저자직강,김동현 (Austin Kim),https://www.inflearn.com/course/arm%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%A6%AC%EB%88%85%EC%8A%A4%EC%BB%A4%EB%84%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4
+정보보안 패스파인더,제주코딩베이스캠프,https://www.inflearn.com/course/%EC%A0%95%EB%B3%B4%EB%B3%B4%EC%95%88-%ED%8C%A8%EC%8A%A4%ED%8C%8C%EC%9D%B8%EB%8D%94
+실습으로 마스터하는 OAuth 2.0: 기본부터 보안 위험까지,한윤석,https://www.inflearn.com/course/%EC%8B%A4%EC%8A%B5%EC%9C%BC%EB%A1%9C-%EB%A7%88%EC%8A%A4%ED%84%B0%ED%95%98%EB%8A%94-oauth
+"파일 업로드 취약점 고급 공격 기법 PART2-2 : 웹 방화벽 우회를 위한, 기본 지식과 테크닉",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-2
+"안전한 웹 사이트 제작을 위한, 웹 보안 원 포인트 레슨",크리핵티브,https://www.inflearn.com/course/%EC%9B%B9%EB%B3%B4%EC%95%88-%EC%95%88%EC%A0%84-%EC%9B%90%ED%8F%AC%EC%9D%B8%ED%8A%B8
+"모의해킹 실무자가 알려주는, XSS 공격 기법",크리핵티브,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-xss-%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95
+"모의해킹 실무자가 알려주는, 파일 업로드 취약점 공격 기법과 실무 사례 분석 : PART 1",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%B5%EA%B2%A9-1
+"모의해킹 실무자가 알려주는, SQL Injection 공격 기법과 시큐어 코딩 : PART 1",크리핵티브,https://www.inflearn.com/course/sql-injection-secure-coding-1
+시스템엔지니어 교과서,유똥,https://www.inflearn.com/course/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4-%EA%B5%90%EA%B3%BC%EC%84%9C
+누구도 알려주지 않던 화이트 해커가 되기 위한 로드맵 A to Z,knockOn,https://www.inflearn.com/course/%ED%99%94%EC%9D%B4%ED%8A%B8-%ED%95%B4%EC%BB%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5-a-to-z
+DevSecOps SAST(/w GitLab),taesun1114,https://www.inflearn.com/course/devsecops-sast-gitlab
+보안 전문가를 위한 파워쉘,보안프로젝트,https://www.inflearn.com/course/%EB%B3%B4%EC%95%88-%EC%A0%84%EB%AC%B8%EA%B0%80%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%8C%8C%EC%9B%8C%EC%89%98
+파일 업로드 취약점 고급 공격 기법 PART2 [통합편],크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-%ED%86%B5%ED%95%A9
+파일 업로드 취약점 고급 공격 기법 PART2-3 : 다양한 실무 환경에서의 공격 방법론,크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-3
+"실습으로 배우는 OAuth 2.0 개념 원리, 그리고 해킹과 보안",크리핵티브,https://www.inflearn.com/course/%EC%8B%A4%EC%8A%B5-oauth-%EB%B3%B4%EC%95%88-%ED%95%B4%ED%82%B9
+취미로 해킹#6(SquareCTF_RR),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C-%ED%95%B4%ED%82%B96
+"Skill-Up! 웹쉘 탐지 솔루션 우회를 위한, 웹쉘 난독화 기법",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%B5%EA%B2%A9-%EC%9B%B9%EC%89%98
+"모의해킹 실무자가 알려주는, 파일 다운로드 취약점 공격 기법과 실무 사례 분석",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%B5%EA%B2%A9
+신용정보법 및 하위 법령 전부 학습하기,ISMS-P WIN,https://www.inflearn.com/course/%EC%8B%A0%EC%9A%A9%EC%A0%95%EB%B3%B4%EB%B2%95-%ED%95%98%EC%9C%84%EB%B2%95%EB%A0%B9-%ED%95%99%EC%8A%B5
+ISMS-P 인증기준 선택 특강,ISMS-P WIN,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EA%B8%B0%EC%A4%80-%EC%84%A0%ED%83%9D%ED%8A%B9%EA%B0%95
+국가공인 산업보안관리사(ISE) 자격증 대비,Digital Spec Up,https://www.inflearn.com/course/%EC%82%B0%EC%97%85%EB%B3%B4%EC%95%88%EA%B4%80%EB%A6%AC%EC%82%AC-%EC%9E%90%EA%B2%A9%EC%A6%9D-%EB%8C%80%EB%B9%84-dsu
+ISMS-P 인증심사원 자격검정 기본/실무 과정 - 개인정보보호법규(2022년),보안프로젝트,https://www.inflearn.com/course/isms-p-%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4-2022
+파일 업로드 취약점 고급 공격 기법 PART2-1 : 파일 업로드 라이브러리 분석과 공격 방법론,크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-1
+무작정 따라하며 원리를 깨우치는 웹 해킹 : WebGoat 편,크리핵티브,https://www.inflearn.com/course/%EC%9B%B9-%ED%95%B4%ED%82%B9-%EB%B3%B4%EC%95%88-webgoat
+CPPG CORE CLASSROOM 학습,ISMS-P WIN,https://www.inflearn.com/course/cppg-core-classroom
+24년 개인정보보호법 시행령 개정 해설 강의,ISMS-P WIN,https://www.inflearn.com/course/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8%EB%B2%95-%EC%8B%9C%ED%96%89%EB%A0%B9-%EA%B0%9C%EC%A0%95-%ED%95%B4%EC%84%A4
+"블록체인, 가상자산거래소 보안",ISMS-P WIN,https://www.inflearn.com/course/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8-%EA%B0%80%EC%83%81%EC%9E%90%EC%82%B0-%EB%B3%B4%EC%95%88
+웹 개발자라면 꼭 알아야 할 보안 기초,Jason,https://www.inflearn.com/course/%EC%9B%B9-%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EB%B3%B4%EC%95%88-%EA%B8%B0%EC%B4%88
+"모의해킹 업무 취업 준비, 면접 대비 과정",보안프로젝트,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%97%85%EB%AC%B4-%EC%B7%A8%EC%97%85%EC%A4%80%EB%B9%84-%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84
+2022 ISMS-P 인증심사원 자격검정 Add-on 인증기준 결함 문제풀이,보안프로젝트,https://www.inflearn.com/course/isms-p-2022-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4
+현직 CISO가 알려주는 정보보호/정보기술 채용 합격 비법,보안프로젝트,https://www.inflearn.com/course/%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0-%EC%B1%84%EC%9A%A9-%EB%B9%84%EB%B2%95
+ISMS-P 인증심사원 자격검정 기본/실무 과정 시리즈 03 - T2. 인증기준2 (2/2),보안프로젝트,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EC%8B%AC%EC%82%AC%EC%9B%90-3
+해킹 대회를 위한 시스템 해킹 프로토스타 완벽 풀이집,보안프로젝트,https://www.inflearn.com/course/%ED%94%84%EB%A1%9C%ED%86%A0%EC%8A%A4%ED%83%80
+정보보안 전문가란? 무엇을 하고 어떻게 준비해야 할까.,보안프로젝트,https://www.inflearn.com/course/%EC%A0%95%EB%B3%B4%EB%B3%B4%EC%95%88-%EC%A0%84%EB%AC%B8%EA%B0%80
+비박스를 활용한 웹 모의해킹 완벽 실습,보안프로젝트,https://www.inflearn.com/course/%EB%B9%84%EB%B0%95%EC%8A%A4-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%8B%A4%EC%8A%B5
+메타스플로잇(Metasploit) 활용한 취약점 분석(중고급과정),보안프로젝트,https://www.inflearn.com/course/%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%8C%EB%A1%9C%EC%9E%87-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EB%B6%84%EC%84%9D%EA%B3%A0%EA%B8%89
+반드시 알고 넘어가야 할 웹 기술 기초편,크리핵티브,https://www.inflearn.com/course/%EC%9B%B9-%EA%B8%B0%EC%88%A0-%EA%B8%B0%EC%B4%88
+2023년 개인정보보호 법령 제개정 내용 강의,ISMS-P WIN,https://www.inflearn.com/course/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8-%EB%B2%95%EB%A0%B9-%EC%A0%9C%EA%B0%9C%EC%A0%95-%EB%82%B4%EC%9A%A9-%EA%B0%95%EC%9D%98
+차이를 만드는 AWS 클라우드 보안 첫걸음,SK엠앤서비스,https://www.inflearn.com/course/%EC%B0%A8%EC%9D%B4%EB%A5%BC-%EB%A7%8C%EB%93%9C%EB%8A%94-aws%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EB%B3%B4%EC%95%88-%EC%B2%AB%EA%B1%B8%EC%9D%8C
+ISMS-P 인증심사원 자격검정 기본/실무 과정 시리즈 06 - T4. 개인정보보호 법규 개정(2/2),보안프로젝트,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EC%8B%AC%EC%82%AC%EC%9B%90-6
+모의해킹 취업 준비하는데 알아두면 좋은 것,보안프로젝트,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%B7%A8%EC%97%85
+파이썬을 활용한 데이터분석과 IT보안,보안프로젝트,https://www.inflearn.com/course/python-data-security
+게임 보안 입문을 위한 치트엔진 튜토리얼,보안프로젝트,https://www.inflearn.com/course/%EA%B2%8C%EC%9E%84-%EB%B3%B4%EC%95%88-%EC%B9%98%ED%8A%B8%EC%97%94%EC%A7%84
+모의해킹이란 무엇인가 - 진로편,보안프로젝트,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%A7%84%EB%A1%9C
+네이버클라우드 보안 아키텍처 및 비용,지금 당장,https://www.inflearn.com/course/%EB%84%A4%EC%9D%B4%EB%B2%84%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EB%B3%B4%EC%95%88-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EC%9A%A9
+취미로 해킹#5(DIMICTF),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C%ED%95%B4%ED%82%B9-dimictf
+취미로 해킹#2(해커의 컴퓨팅),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C-%ED%95%B4%ED%82%B92-%ED%95%B4%EC%BB%A4%EC%9D%98-%EC%BB%B4%ED%93%A8%ED%8C%85
+리눅스 커널 해킹. A부터 Z까지,김현우,https://www.inflearn.com/course/%EB%A6%AC%EB%88%85%EC%8A%A4-%EC%BB%A4%EB%84%90-%ED%95%B4%ED%82%B9
+안드로이드 앱 모의해킹/분석 시작하기 (With.IDA/JEB/Frida),taesun1114,https://www.inflearn.com/course/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9
+무차별 대입 공격(bruteforce attack) with Python,제주코딩베이스캠프,https://www.inflearn.com/course/%EB%AC%B4%EC%B0%A8%EB%B3%84-%EB%8C%80%EC%9E%85-%EA%B3%B5%EA%B2%A9
+ISMS-P 인증심사원 2020년 실전 비공개 모의고사 해설 강의,보안프로젝트,https://www.inflearn.com/course/isms-p-%EB%B9%84%EA%B3%B5%EA%B0%9C-%EB%AA%A8%EC%9D%98%EA%B3%A0%EC%82%AC-2020
+"ISMS-P 인증심사원 자격검정 기본/실무 과정 시리즈 01 - T1. 인증제도, 인증기준1",보안프로젝트,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EC%8B%AC%EC%82%AC%EC%9B%90-1
+모의해킹 업무의 이해,보안프로젝트,https://www.inflearn.com/course/%EB%B3%B4%EC%95%88-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%97%85%EB%AC%B4
+윈도우즈 애플리케이션 취약점 분석 입문부터 활용까지,보안프로젝트,https://www.inflearn.com/course/%EC%9C%88%EB%8F%84%EC%9A%B0%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%B7%A8%EC%95%BD%EC%A0%90
+안전한 홈 네트워크를 위한 보안강화: 홈 네트워크 보안을 위한 첫 걸음,한국정보보호교육센터,https://www.inflearn.com/course/%ED%99%88%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%B3%B4%EC%95%88-%EC%B2%AB%EA%B1%B8%EC%9D%8C
+취미로 해킹#7(SBP),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C-%ED%95%B4%ED%82%B9-7-sbp
+Skill-Up! 배워서 바로 쓰는 웹쉘 제작,크리핵티브,https://www.inflearn.com/course/%EC%9B%B9%ED%95%B4%ED%82%B9-%EC%9B%B9%EC%89%98-%EC%A0%9C%EC%9E%91
+"성공적인 SQL 인젝션 공격을 위한, SQL 기본 문법",크리핵티브,https://www.inflearn.com/course/SQL-%EC%9D%B8%EC%A0%9D%EC%85%98-%EA%B3%B5%EA%B2%A9-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95
+웹 해킹과 모의해킹 현업에 대한 이야기,크리핵티브,https://www.inflearn.com/course/web-hacking-%EB%AA%A8%EC%9D%98-%ED%95%B4%ED%82%B9
+해커를 위한 iOS 앱 모의 해킹 전문 과정,보안프로젝트,https://www.inflearn.com/course/ios-%EB%AA%A8%EB%B0%94%EC%9D%BC%EC%95%B1-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%9E%85%EB%AC%B8
+Arm 아키텍처와 리눅스 커널 인터페이스 - 저자직강,김동현 (Austin Kim),https://www.inflearn.com/course/arm%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%A6%AC%EB%88%85%EC%8A%A4%EC%BB%A4%EB%84%90-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4
+정보보안 패스파인더,제주코딩베이스캠프,https://www.inflearn.com/course/%EC%A0%95%EB%B3%B4%EB%B3%B4%EC%95%88-%ED%8C%A8%EC%8A%A4%ED%8C%8C%EC%9D%B8%EB%8D%94
+실습으로 마스터하는 OAuth 2.0: 기본부터 보안 위험까지,한윤석,https://www.inflearn.com/course/%EC%8B%A4%EC%8A%B5%EC%9C%BC%EB%A1%9C-%EB%A7%88%EC%8A%A4%ED%84%B0%ED%95%98%EB%8A%94-oauth
+"파일 업로드 취약점 고급 공격 기법 PART2-2 : 웹 방화벽 우회를 위한, 기본 지식과 테크닉",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-2
+"안전한 웹 사이트 제작을 위한, 웹 보안 원 포인트 레슨",크리핵티브,https://www.inflearn.com/course/%EC%9B%B9%EB%B3%B4%EC%95%88-%EC%95%88%EC%A0%84-%EC%9B%90%ED%8F%AC%EC%9D%B8%ED%8A%B8
+"모의해킹 실무자가 알려주는, XSS 공격 기법",크리핵티브,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-xss-%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95
+"모의해킹 실무자가 알려주는, 파일 업로드 취약점 공격 기법과 실무 사례 분석 : PART 1",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%B5%EA%B2%A9-1
+"모의해킹 실무자가 알려주는, SQL Injection 공격 기법과 시큐어 코딩 : PART 1",크리핵티브,https://www.inflearn.com/course/sql-injection-secure-coding-1
+시스템엔지니어 교과서,유똥,https://www.inflearn.com/course/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4-%EA%B5%90%EA%B3%BC%EC%84%9C
+누구도 알려주지 않던 화이트 해커가 되기 위한 로드맵 A to Z,knockOn,https://www.inflearn.com/course/%ED%99%94%EC%9D%B4%ED%8A%B8-%ED%95%B4%EC%BB%A4-%EB%A1%9C%EB%93%9C%EB%A7%B5-a-to-z
+DevSecOps SAST(/w GitLab),taesun1114,https://www.inflearn.com/course/devsecops-sast-gitlab
+보안 전문가를 위한 파워쉘,보안프로젝트,https://www.inflearn.com/course/%EB%B3%B4%EC%95%88-%EC%A0%84%EB%AC%B8%EA%B0%80%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%8C%8C%EC%9B%8C%EC%89%98
+파일 업로드 취약점 고급 공격 기법 PART2 [통합편],크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-%ED%86%B5%ED%95%A9
+파일 업로드 취약점 고급 공격 기법 PART2-3 : 다양한 실무 환경에서의 공격 방법론,크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-3
+"실습으로 배우는 OAuth 2.0 개념 원리, 그리고 해킹과 보안",크리핵티브,https://www.inflearn.com/course/%EC%8B%A4%EC%8A%B5-oauth-%EB%B3%B4%EC%95%88-%ED%95%B4%ED%82%B9
+취미로 해킹#6(SquareCTF_RR),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C-%ED%95%B4%ED%82%B96
+"Skill-Up! 웹쉘 탐지 솔루션 우회를 위한, 웹쉘 난독화 기법",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%B5%EA%B2%A9-%EC%9B%B9%EC%89%98
+"모의해킹 실무자가 알려주는, 파일 다운로드 취약점 공격 기법과 실무 사례 분석",크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%B5%EA%B2%A9
+신용정보법 및 하위 법령 전부 학습하기,ISMS-P WIN,https://www.inflearn.com/course/%EC%8B%A0%EC%9A%A9%EC%A0%95%EB%B3%B4%EB%B2%95-%ED%95%98%EC%9C%84%EB%B2%95%EB%A0%B9-%ED%95%99%EC%8A%B5
+ISMS-P 인증기준 선택 특강,ISMS-P WIN,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EA%B8%B0%EC%A4%80-%EC%84%A0%ED%83%9D%ED%8A%B9%EA%B0%95
+국가공인 산업보안관리사(ISE) 자격증 대비,Digital Spec Up,https://www.inflearn.com/course/%EC%82%B0%EC%97%85%EB%B3%B4%EC%95%88%EA%B4%80%EB%A6%AC%EC%82%AC-%EC%9E%90%EA%B2%A9%EC%A6%9D-%EB%8C%80%EB%B9%84-dsu
+ISMS-P 인증심사원 자격검정 기본/실무 과정 - 개인정보보호법규(2022년),보안프로젝트,https://www.inflearn.com/course/isms-p-%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4-2022
+파일 업로드 취약점 고급 공격 기법 PART2-1 : 파일 업로드 라이브러리 분석과 공격 방법론,크리핵티브,https://www.inflearn.com/course/%ED%8C%8C%EC%9D%BC%EC%97%85%EB%A1%9C%EB%93%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EA%B3%A0%EA%B8%89%EA%B3%B5%EA%B2%A9%EA%B8%B0%EB%B2%95-part2-1
+무작정 따라하며 원리를 깨우치는 웹 해킹 : WebGoat 편,크리핵티브,https://www.inflearn.com/course/%EC%9B%B9-%ED%95%B4%ED%82%B9-%EB%B3%B4%EC%95%88-webgoat
+CPPG CORE CLASSROOM 학습,ISMS-P WIN,https://www.inflearn.com/course/cppg-core-classroom
+24년 개인정보보호법 시행령 개정 해설 강의,ISMS-P WIN,https://www.inflearn.com/course/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8%EB%B2%95-%EC%8B%9C%ED%96%89%EB%A0%B9-%EA%B0%9C%EC%A0%95-%ED%95%B4%EC%84%A4
+"블록체인, 가상자산거래소 보안",ISMS-P WIN,https://www.inflearn.com/course/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8-%EA%B0%80%EC%83%81%EC%9E%90%EC%82%B0-%EB%B3%B4%EC%95%88
+웹 개발자라면 꼭 알아야 할 보안 기초,Jason,https://www.inflearn.com/course/%EC%9B%B9-%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EB%B3%B4%EC%95%88-%EA%B8%B0%EC%B4%88
+"모의해킹 업무 취업 준비, 면접 대비 과정",보안프로젝트,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%97%85%EB%AC%B4-%EC%B7%A8%EC%97%85%EC%A4%80%EB%B9%84-%EB%A9%B4%EC%A0%91%EB%8C%80%EB%B9%84
+2022 ISMS-P 인증심사원 자격검정 Add-on 인증기준 결함 문제풀이,보안프로젝트,https://www.inflearn.com/course/isms-p-2022-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4
+현직 CISO가 알려주는 정보보호/정보기술 채용 합격 비법,보안프로젝트,https://www.inflearn.com/course/%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8-%EC%A0%95%EB%B3%B4%EA%B8%B0%EC%88%A0-%EC%B1%84%EC%9A%A9-%EB%B9%84%EB%B2%95
+ISMS-P 인증심사원 자격검정 기본/실무 과정 시리즈 03 - T2. 인증기준2 (2/2),보안프로젝트,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EC%8B%AC%EC%82%AC%EC%9B%90-3
+해킹 대회를 위한 시스템 해킹 프로토스타 완벽 풀이집,보안프로젝트,https://www.inflearn.com/course/%ED%94%84%EB%A1%9C%ED%86%A0%EC%8A%A4%ED%83%80
+정보보안 전문가란? 무엇을 하고 어떻게 준비해야 할까.,보안프로젝트,https://www.inflearn.com/course/%EC%A0%95%EB%B3%B4%EB%B3%B4%EC%95%88-%EC%A0%84%EB%AC%B8%EA%B0%80
+비박스를 활용한 웹 모의해킹 완벽 실습,보안프로젝트,https://www.inflearn.com/course/%EB%B9%84%EB%B0%95%EC%8A%A4-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%8B%A4%EC%8A%B5
+메타스플로잇(Metasploit) 활용한 취약점 분석(중고급과정),보안프로젝트,https://www.inflearn.com/course/%EB%A9%94%ED%83%80%EC%8A%A4%ED%94%8C%EB%A1%9C%EC%9E%87-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%B7%A8%EC%95%BD%EC%A0%90-%EB%B6%84%EC%84%9D%EA%B3%A0%EA%B8%89
+반드시 알고 넘어가야 할 웹 기술 기초편,크리핵티브,https://www.inflearn.com/course/%EC%9B%B9-%EA%B8%B0%EC%88%A0-%EA%B8%B0%EC%B4%88
+2023년 개인정보보호 법령 제개정 내용 강의,ISMS-P WIN,https://www.inflearn.com/course/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8-%EB%B2%95%EB%A0%B9-%EC%A0%9C%EA%B0%9C%EC%A0%95-%EB%82%B4%EC%9A%A9-%EA%B0%95%EC%9D%98
+차이를 만드는 AWS 클라우드 보안 첫걸음,SK엠앤서비스,https://www.inflearn.com/course/%EC%B0%A8%EC%9D%B4%EB%A5%BC-%EB%A7%8C%EB%93%9C%EB%8A%94-aws%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EB%B3%B4%EC%95%88-%EC%B2%AB%EA%B1%B8%EC%9D%8C
+ISMS-P 인증심사원 자격검정 기본/실무 과정 시리즈 06 - T4. 개인정보보호 법규 개정(2/2),보안프로젝트,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EC%8B%AC%EC%82%AC%EC%9B%90-6
+모의해킹 취업 준비하는데 알아두면 좋은 것,보안프로젝트,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%B7%A8%EC%97%85
+파이썬을 활용한 데이터분석과 IT보안,보안프로젝트,https://www.inflearn.com/course/python-data-security
+게임 보안 입문을 위한 치트엔진 튜토리얼,보안프로젝트,https://www.inflearn.com/course/%EA%B2%8C%EC%9E%84-%EB%B3%B4%EC%95%88-%EC%B9%98%ED%8A%B8%EC%97%94%EC%A7%84
+모의해킹이란 무엇인가 - 진로편,보안프로젝트,https://www.inflearn.com/course/%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%A7%84%EB%A1%9C
+네이버클라우드 보안 아키텍처 및 비용,지금 당장,https://www.inflearn.com/course/%EB%84%A4%EC%9D%B4%EB%B2%84%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%EB%B3%B4%EC%95%88-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EB%B9%84%EC%9A%A9
+취미로 해킹#5(DIMICTF),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C%ED%95%B4%ED%82%B9-dimictf
+취미로 해킹#2(해커의 컴퓨팅),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C-%ED%95%B4%ED%82%B92-%ED%95%B4%EC%BB%A4%EC%9D%98-%EC%BB%B4%ED%93%A8%ED%8C%85
+리눅스 커널 해킹. A부터 Z까지,김현우,https://www.inflearn.com/course/%EB%A6%AC%EB%88%85%EC%8A%A4-%EC%BB%A4%EB%84%90-%ED%95%B4%ED%82%B9
+안드로이드 앱 모의해킹/분석 시작하기 (With.IDA/JEB/Frida),taesun1114,https://www.inflearn.com/course/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9
+무차별 대입 공격(bruteforce attack) with Python,제주코딩베이스캠프,https://www.inflearn.com/course/%EB%AC%B4%EC%B0%A8%EB%B3%84-%EB%8C%80%EC%9E%85-%EA%B3%B5%EA%B2%A9
+ISMS-P 인증심사원 2020년 실전 비공개 모의고사 해설 강의,보안프로젝트,https://www.inflearn.com/course/isms-p-%EB%B9%84%EA%B3%B5%EA%B0%9C-%EB%AA%A8%EC%9D%98%EA%B3%A0%EC%82%AC-2020
+"ISMS-P 인증심사원 자격검정 기본/실무 과정 시리즈 01 - T1. 인증제도, 인증기준1",보안프로젝트,https://www.inflearn.com/course/isms-p-%EC%9D%B8%EC%A6%9D%EC%8B%AC%EC%82%AC%EC%9B%90-1
+모의해킹 업무의 이해,보안프로젝트,https://www.inflearn.com/course/%EB%B3%B4%EC%95%88-%EB%AA%A8%EC%9D%98%ED%95%B4%ED%82%B9-%EC%97%85%EB%AC%B4
+윈도우즈 애플리케이션 취약점 분석 입문부터 활용까지,보안프로젝트,https://www.inflearn.com/course/%EC%9C%88%EB%8F%84%EC%9A%B0%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%B7%A8%EC%95%BD%EC%A0%90
+안전한 홈 네트워크를 위한 보안강화: 홈 네트워크 보안을 위한 첫 걸음,한국정보보호교육센터,https://www.inflearn.com/course/%ED%99%88%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%B3%B4%EC%95%88-%EC%B2%AB%EA%B1%B8%EC%9D%8C
+취미로 해킹#7(SBP),장용하,https://www.inflearn.com/course/%EC%B7%A8%EB%AF%B8%EB%A1%9C-%ED%95%B4%ED%82%B9-7-sbp
+Skill-Up! 배워서 바로 쓰는 웹쉘 제작,크리핵티브,https://www.inflearn.com/course/%EC%9B%B9%ED%95%B4%ED%82%B9-%EC%9B%B9%EC%89%98-%EC%A0%9C%EC%9E%91
+"성공적인 SQL 인젝션 공격을 위한, SQL 기본 문법",크리핵티브,https://www.inflearn.com/course/SQL-%EC%9D%B8%EC%A0%9D%EC%85%98-%EA%B3%B5%EA%B2%A9-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95
+웹 해킹과 모의해킹 현업에 대한 이야기,크리핵티브,https://www.inflearn.com/course/web-hacking-%EB%AA%A8%EC%9D%98-%ED%95%B4%ED%82%B9

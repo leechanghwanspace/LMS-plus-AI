@@ -1,19 +1,18 @@
 package com.project.LMS_plus.controller;
 
-import com.project.LMS_plus.dto.schoolcourse.CourseBatchRequest;
-import com.project.LMS_plus.dto.schoolcourse.CourseContentDto;
-import com.project.LMS_plus.dto.schoolcourse.CourseDetailDTO;
+import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.service.SchoolCourseService;
+import com.project.LMS_plus.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/school-courses")
@@ -21,80 +20,54 @@ import java.util.List;
 public class SchoolCourseController {
 
     private final SchoolCourseService schoolCourseService;
+    private final UserService userService;
 
     @Autowired
-    public SchoolCourseController(SchoolCourseService schoolCourseService) {
+    public SchoolCourseController(SchoolCourseService schoolCourseService, UserService userService) {
         this.schoolCourseService = schoolCourseService;
+        this.userService = userService;
     }
 
-    @Operation(summary = "전체 과목 조회", description = "모든 CSV 파일을 읽어와 모든 과목 데이터를 반환합니다.")
-    @GetMapping("/all")
-    public ResponseEntity<List<CourseDetailDTO>> getAllCourses() {
-        List<CourseDetailDTO> courses = schoolCourseService.loadAllCourses();
-        return ResponseEntity.ok(courses);
+    @GetMapping
+    @Operation(summary = "모든 과목 조회", description = "모든 SchoolCourse 데이터를 반환합니다.")
+    public List<SchoolCourse> getAllSchoolCourse() {
+        return schoolCourseService.getAllSchoolCourse();
     }
 
-    @Operation(summary = "전공별 과목 조회", description = "특정 전공의 CSV 파일을 읽어와 해당 전공의 과목 데이터를 반환합니다.")
-    @GetMapping("/major/{majorType}")
-    public ResponseEntity<List<CourseDetailDTO>> getCoursesByMajor(
-            @Parameter(description = "조회할 전공의 이름", example = "ai") @PathVariable String majorType) {
-        List<CourseDetailDTO> courses = schoolCourseService.loadCoursesByMajor(majorType);
-        return ResponseEntity.ok(courses);
-    }
+    @GetMapping("/{courseId}")
+    @Operation(summary = "특정 과목 조회", description = "courseId를 사용하여 특정 SchoolCourse 데이터를 반환합니다.")
+    public ResponseEntity<SchoolCourse> getSchoolCourseByCourseId(
+            @Parameter(description = "조회할 과목의 ID", example = "CS101") @PathVariable String courseId) {
+        Optional<SchoolCourse> schoolCourse = schoolCourseService.getSchoolCourseByCourseId(courseId);
 
-    @Operation(summary = "사용자 과목 저장", description = "사용자가 선택한 과목 정보를 저장합니다.")
-    @PostMapping("/save/{studentId}")
-    public ResponseEntity<String> saveSchoolCourse(
-            @Parameter(description = "저장할 과목 정보") @RequestBody CourseDetailDTO courseDetailDTO,
-            @Parameter(description = "사용자 ID", example = "91913505") @PathVariable String studentId) {
-        try {
-            schoolCourseService.saveSchoolCourse(courseDetailDTO, studentId);
-            return ResponseEntity.ok("Course saved successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error saving course: " + e.getMessage());
+        if (schoolCourse.isPresent()) {
+            return ResponseEntity.ok(schoolCourse.get());
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @Operation(summary = "전공별 과목 조회", description = "특정 전공의 CSV 파일을 읽어와 해당 전공의 과목 데이터를 반환합니다.")
-    @GetMapping("/majorContent/{majorType}")
-    public ResponseEntity<List<CourseContentDto>> getCoursesContentsByMajor(
-            @Parameter(description = "조회할 전공의 이름", example = "ai") @PathVariable String majorType) {
-        List<CourseContentDto> courses = schoolCourseService.loadCoursesContentsByMajor(majorType);
-        return ResponseEntity.ok(courses);
+    @GetMapping("/major/{majorPrefix}")
+    @Operation(summary = "전공 기반 과목 조회", description = "전공 접두어(majorPrefix)를 기준으로 과목 목록을 반환합니다.")
+    public List<SchoolCourse> getCoursesByMajor(
+            @Parameter(description = "전공 접두어 (예: CS, IT)", example = "CS") @PathVariable String majorPrefix) {
+        return schoolCourseService.getCoursesByMajor(majorPrefix);
     }
 
-    @GetMapping("/majorContent/{majorType}/{courseName}")
-    public ResponseEntity<List<CourseContentDto>> getCourseContentsByMajorAndCourseName(@PathVariable String majorType, @PathVariable String courseName) {
-        List<CourseContentDto> courses = schoolCourseService.loadCoursesContentByMajorAndCourseName(majorType, courseName);
-        return ResponseEntity.ok(courses);
+    @GetMapping("/{studentId}/course-info")
+    @Operation(summary = "학생의 모든 과목 정보 조회", description = "특정 학생 ID에 해당하는 모든 과목 정보를 반환합니다.")
+    public ResponseEntity<List<Map<String, String>>> getUserCourseInfo(
+            @Parameter(description = "학생 ID", example = "2023101234") @PathVariable String studentId) {
+        List<Map<String, String>> courseInfoList = userService.loadUserSchoolCourseNameAndDetails(studentId);
+        return ResponseEntity.ok(courseInfoList);
     }
 
-
-    @PostMapping("/register-batch")
-    public ResponseEntity<String> registerCoursesBatch(@RequestBody CourseBatchRequest request) {
-        try {
-            String studentId = request.getStudentId();
-
-            List<String> courseNames = request.getCourseName();
-            List<Integer> courseNameList = request.getGradeScore();
-            String majorName = request.getMajorName();
-
-            if (courseNames.size() != courseNameList.size()) {
-                return ResponseEntity.badRequest().body("과목과 학점의 개수가 일치하지 않습니다.");
-            }
-
-            for (int i = 0; i < courseNames.size(); i++) {
-                schoolCourseService.saveSchoolCourseByNameWithGrade(
-                        studentId, majorName, courseNames.get(i) , courseNameList.get(i)
-                );
-            }
-
-            return ResponseEntity.ok("모든 과목이 성공적으로 등록되었습니다.");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("과목 등록 중 오류가 발생했습니다: " + e.getMessage());
-        }
+    @GetMapping("/{studentId}/course-info/{courseId}")
+    @Operation(summary = "학생의 특정 과목 정보 조회", description = "특정 학생 ID와 과목 ID에 해당하는 과목 정보를 반환합니다.")
+    public ResponseEntity<Map<String, String>> getUserCourseInfoByCourseId(
+            @Parameter(description = "학생 ID", example = "2023101234") @PathVariable String studentId,
+            @Parameter(description = "과목 ID", example = "CS101") @PathVariable String courseId) {
+        Map<String, String> courseInfo = userService.loadUserSchoolCourseNameAndDetailsByCourseId(studentId, courseId);
+        return ResponseEntity.ok(courseInfo);
     }
 }

@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Entity
 @Getter
 @Setter
@@ -13,20 +17,37 @@ public class SchoolCourse {
     @Id
     private String courseId;
 
+    @Column(nullable = false)
     private String courseName;
 
-    private String job1;
+    @Column(length = 5000)
+    private String courseDetails;
 
-    private String job2;
-
-    private String job3;
-
+    @Column(nullable = false)
     private int gradeScore;
 
-    private double correctRate;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")  // User와의 관계 설정
-    @JsonIgnore  // user 정보는 JSON 응답에서 제외
-    private User user;  // 과목을 수강한 사용자
+    @OneToMany(mappedBy = "schoolCourse", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<SchoolCourseWeekContents> weekContents = new ArrayList<>();
+
+    // 기본 생성자
+    public SchoolCourse() {}
+
+    public SchoolCourse(String courseId, String courseName, int gradeScore) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.gradeScore = gradeScore;
+    }
+
+    public void addWeekContent(SchoolCourseWeekContents weekContent) {
+        weekContents.add(weekContent);
+        weekContent.setSchoolCourse(this);
+    }
+
+    public void removeWeekContent(SchoolCourseWeekContents weekContent) {
+        weekContents.remove(weekContent);
+        weekContent.setSchoolCourse(null);
+    }
 }
+
