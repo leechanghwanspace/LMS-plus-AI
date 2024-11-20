@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -42,43 +43,43 @@ public class RecommendationController {
         return response;
     }
 
-    @PostMapping("/inflearn")
-    @Operation(summary = "Inflearn 강의 추천", description = "courseName과 courseDetails를 기반으로 Inflearn 강의를 추천합니다.")
+
+    @PostMapping("/inflearn/multiple")
+    @Operation(summary = "여러 강의에 대한 Inflearn 강의 추천", description = "각 강의에 대해 상위 추천 결과 중 3개의 강의를 반환합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "추천 목록 반환 성공"),
-            @ApiResponse(responseCode = "400", description = "courseName과 courseDetails 값이 필요합니다.")
+            @ApiResponse(responseCode = "400", description = "입력 데이터가 비어 있습니다.")
     })
-    public ResponseEntity<List<Map<String, Object>>> recommendCourses(@RequestBody Map<String, String> request) {
-        String courseName = request.getOrDefault("courseName", "").trim();
-        String courseDetails = request.getOrDefault("courseDetails", "").trim();
-
-        if (courseName.isEmpty() || courseDetails.isEmpty()) {
+    public ResponseEntity<List<Map<String, Object>>> recommendCoursesForMultipleInputs(@RequestBody List<Map<String, String>> requests) {
+        if (requests == null || requests.isEmpty()) {
             return ResponseEntity.badRequest()
-                    .body(List.of(Map.of("error", "Both 'courseName' and 'courseDetails' are required.")));
+                    .body(List.of(Map.of("error", "Input list cannot be empty.")));
         }
 
-        List<Map<String, Object>> recommendations = recommendationService.getRecommendedInflearnCourses(courseName, courseDetails);
+        List<Map<String, Object>> results = new ArrayList<>();
 
-        return ResponseEntity.ok(recommendations);
-    }
+        for (Map<String, String> request : requests) {
+            String courseName = request.getOrDefault("courseName", "").trim();
+            String courseDetails = request.getOrDefault("courseDetails", "").trim();
 
-    @PostMapping("/inflearn/random")
-    @Operation(summary = "랜덤 Inflearn 강의 추천", description = "상위 추천 결과 중 3개의 강의를 랜덤으로 반환합니다.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "랜덤 추천 목록 반환 성공"),
-            @ApiResponse(responseCode = "400", description = "courseName과 courseDetails 값이 필요합니다.")
-    })
-    public ResponseEntity<List<Map<String, Object>>> recommendRandomCourses(@RequestBody Map<String, String> request) {
-        String courseName = request.getOrDefault("courseName", "").trim();
-        String courseDetails = request.getOrDefault("courseDetails", "").trim();
+            if (courseName.isEmpty() || courseDetails.isEmpty()) {
+                results.add(Map.of(
+                        "error", "Both 'courseName' and 'courseDetails' are required."
+                ));
+                continue;
+            }
 
-        if (courseName.isEmpty() || courseDetails.isEmpty()) {
-            return ResponseEntity.badRequest()
-                    .body(List.of(Map.of("error", "Both 'courseName' and 'courseDetails' are required.")));
+            List<Map<String, Object>> recommendations = recommendationService.getRecommendedCoursesForMultipleInputs(
+                    List.of(request)
+            );
+
+            // 추천 결과만 포함시킴
+            results.addAll(recommendations);
         }
 
-        List<Map<String, Object>> recommendations = recommendationService.getRecommendedInflearnCourses(courseName, courseDetails);
-
-        return ResponseEntity.ok(recommendations);
+        return ResponseEntity.ok(results);
     }
+
+
 }
+
