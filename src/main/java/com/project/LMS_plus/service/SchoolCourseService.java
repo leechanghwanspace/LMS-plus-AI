@@ -10,8 +10,14 @@ import com.project.LMS_plus.entity.UserCourse;
 import com.project.LMS_plus.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpHeaders;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -26,8 +32,9 @@ public class SchoolCourseService {
     private final SchoolCourseWeekContentsRepository schoolCourseWeekContentsRepository;
     private final UserCourseRepository userCourseRepository;
 
+
     @Autowired
-    public SchoolCourseService(UserRepository userRepository, SchoolCourseRepository schoolCourseRepository, JobRepository jobRepository, SchoolCourseWeekContentsRepository schoolCourseWeekContentsRepository, UserCourseRepository userCourseRepository) {
+    public SchoolCourseService(UserRepository userRepository, SchoolCourseRepository schoolCourseRepository, SchoolCourseWeekContentsRepository schoolCourseWeekContentsRepository, UserCourseRepository userCourseRepository) {
         this.userRepository = userRepository;
         this.schoolCourseRepository = schoolCourseRepository;
         this.schoolCourseWeekContentsRepository = schoolCourseWeekContentsRepository;
@@ -64,20 +71,6 @@ public class SchoolCourseService {
         }
     }
 
-    // 전체 과목 조회: 모든 CSV 파일의 데이터를 병합하여 반환
-    public List<CourseDetailDTO> loadAllCourses() {
-        List<CourseDetailDTO> allCourses = new ArrayList<>();
-        File folder = new File(BASE_CSV_PATH);
-
-        for (File file : Objects.requireNonNull(folder.listFiles())) {
-            if (file.getName().endsWith(".csv")) {
-                System.out.println("로드 중인 CSV 파일: " + file.getName());  // 디버깅 로깅 추가
-                allCourses.addAll(loadCourseFromFile(file.getPath()));
-            }
-        }
-        System.out.println("전체 로드된 과목 수: " + allCourses.size());
-        return allCourses;
-    }
 
     // 전공별 과목 조회: 특정 전공의 CSV 파일 로드
     public Set<CourseDetailDTO> loadCoursesByMajor(String majorType) {
@@ -231,6 +224,59 @@ public class SchoolCourseService {
         }
 
         return courseContents;
+    }
+
+    @Transactional
+    public String deleteUserCourse(String studentId, String courseName) {
+        // 사용자 조회
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + studentId));
+
+        // 과목 조회
+        SchoolCourse schoolCourse = schoolCourseRepository.findByCourseName(courseName)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with name: " + courseName));
+
+        // 사용자가 해당 과목을 수강한 기록을 조회
+        List<UserCourse> userCourses = userCourseRepository.findByUserAndSchoolCourse(user, schoolCourse);
+
+        if (userCourses.isEmpty()) {
+            throw new EntityNotFoundException("User is not enrolled in this course");
+        }
+
+        // 사용자 과목 목록에서 해당 과목 삭제
+        for (UserCourse userCourse : userCourses) {
+            userCourseRepository.delete(userCourse);  // 과목과 사용자 간의 관계 삭제
+        }
+
+        return "Course successfully removed from user's courses";
+    }
+
+    public List<Map<String, String>> getRecommendedCourses(List<Map<String, String>> courseInfoList) {
+        List<Map<String, String>> recommendations = new ArrayList<>();
+
+        // Flask API로 POST 요청 보내기
+        RestTemplate restTemplate = new RestTemplate();
+        String flaskApiUrl = "http://localhost:5000/recommend";  // Flask API 주소
+
+        for (Map<String, String> courseInfo : courseInfoList) {
+            // Flask API에 전달할 데이터 준비
+            Map<String, String> requestData = new HashMap<>();
+            requestData.put("courseName", courseInfo.get("courseName"));
+            requestData.put("courseDetails", courseInfo.get("courseDetails"));
+
+            // HTTP 요청 보내기
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestData, headers);
+
+            ResponseEntity<Map> response = restTemplate.postForEntity(flaskApiUrl, requestEntity, Map.class);
+
+            if (response.getBody() != null) {
+                recommendations.add((Map<String, String>) response.getBody());
+            }
+        }
+
+        return recommendations;
     }
 
 }

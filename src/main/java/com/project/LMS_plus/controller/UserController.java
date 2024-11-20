@@ -4,7 +4,6 @@ import com.project.LMS_plus.dto.SignUpForm;
 import com.project.LMS_plus.dto.UserDto;
 import com.project.LMS_plus.entity.SchoolCourse;
 import com.project.LMS_plus.entity.SchoolCourseWeekContents;
-import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.entity.UserCourse;
 import com.project.LMS_plus.service.SchoolCourseService;
 import com.project.LMS_plus.service.UserService;
@@ -120,5 +119,14 @@ public class UserController {
             @PathVariable String studentId) {
         Map<String, List<SchoolCourseWeekContents>> courseContents = schoolCourseService.getCourseContentsForUser(studentId);
         return ResponseEntity.ok(courseContents);
+    }
+    @DeleteMapping("/{studentId}/deleteCourse")
+    public ResponseEntity<String> deleteUserCourse(@PathVariable String studentId, @RequestParam String courseName) {
+        try {
+            String responseMessage = schoolCourseService.deleteUserCourse(studentId, courseName);
+            return ResponseEntity.ok(responseMessage);  // 성공적으로 삭제된 경우 200 OK 응답 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body("Error: " + e.getMessage());  // 에러가 발생한 경우 404 Not Found 응답
+        }
     }
 }

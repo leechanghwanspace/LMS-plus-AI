@@ -1,4 +1,4 @@
-package com.project.LMS_plus.py_recommendation;
+package com.project.LMS_plus.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
