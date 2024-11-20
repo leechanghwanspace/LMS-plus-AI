@@ -83,13 +83,27 @@ public class SecurityConfig {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
 
+            // studentId 추출
             String studentId = authentication.getName();
+
+            // 사용자 정보 조회
             User user = userRepository.findByStudentId(studentId)
                     .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-            response.getWriter().write("{\"message\":\"로그인 성공\", \"studentId\":\"" + studentId + "\", \"username\":\"" + user.getName() + "\"}");
+            // jobId가 null일 경우 null 반환, 존재하면 jobId 반환
+            String jobId = String.valueOf((user.getJob() != null) ? user.getJob().getId() : null);
+
+            // JSON 응답 생성
+            String jsonResponse = String.format(
+                    "{\"message\":\"로그인 성공\", \"studentId\":\"%s\", \"userName\":\"%s\", \"jobId\":%s}",
+                    studentId, user.getName(), (jobId == null ? "null" : "\"" + jobId + "\"")
+            );
+
+            // JSON 응답 전송
+            response.getWriter().write(jsonResponse);
         };
     }
+
 
     @Bean
     public AuthenticationFailureHandler failureHandler() {
