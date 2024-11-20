@@ -55,22 +55,16 @@ public class RecommendationService {
         // 응답 반환
         return response.getBody();
     }
-    public List<Map<String, Object>> getRecommendedRandomInflearnCourses(String courseName, String courseDetails) {
-        String url = "http://localhost:5000/recommend/random";
+    public List<Map<String, Object>> getRecommendedCoursesForMultipleInputs(List<Map<String, String>> courses) {
+        String url = "http://localhost:5000/recommend/multiple";
         RestTemplate restTemplate = new RestTemplate();
 
         // 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // 요청 바디 생성
-        Map<String, String> requestBody = Map.of(
-                "courseName", courseName,
-                "courseDetails", courseDetails
-        );
-
         // HttpEntity 생성
-        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+        HttpEntity<List<Map<String, String>>> requestEntity = new HttpEntity<>(courses, headers);
 
         // Flask 서버에 POST 요청 전송
         ResponseEntity<List> response = restTemplate.exchange(
@@ -82,4 +76,5 @@ public class RecommendationService {
 
         // 응답 반환
         return response.getBody();
-    }}
+    }
+}
