@@ -80,6 +80,40 @@ public class RecommendationController {
         return ResponseEntity.ok(results);
     }
 
+    @PostMapping("/inflearn/multiple/random")
+    @Operation(summary = "여러 강의에 대한 Inflearn 강의 추천", description = "각 강의에 대해 상위 추천 결과 중 3개의 강의를 반환합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "추천 목록 반환 성공"),
+            @ApiResponse(responseCode = "400", description = "입력 데이터가 비어 있습니다.")
+    })
+    public ResponseEntity<List<Map<String, Object>>> recommendRandomCoursesForMultipleInputs(@RequestBody List<Map<String, String>> requests) {
+        if (requests == null || requests.isEmpty()) {
+            return ResponseEntity.badRequest()
+                    .body(List.of(Map.of("error", "Input list cannot be empty.")));
+        }
 
+        List<Map<String, Object>> results = new ArrayList<>();
+
+        for (Map<String, String> request : requests) {
+            String courseName = request.getOrDefault("courseName", "").trim();
+            String courseDetails = request.getOrDefault("courseDetails", "").trim();
+
+            if (courseName.isEmpty() || courseDetails.isEmpty()) {
+                results.add(Map.of(
+                        "error", "Both 'courseName' and 'courseDetails' are required."
+                ));
+                continue;
+            }
+
+            List<Map<String, Object>> recommendations = recommendationService.getRecommendedRandomCoursesForMultipleInputs(
+                    List.of(request)
+            );
+
+            // 추천 결과만 포함시킴
+            results.addAll(recommendations);
+        }
+
+        return ResponseEntity.ok(results);
+    }
 }
 

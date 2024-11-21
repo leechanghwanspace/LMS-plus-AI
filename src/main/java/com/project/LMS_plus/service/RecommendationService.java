@@ -77,4 +77,26 @@ public class RecommendationService {
         // 응답 반환
         return response.getBody();
     }
+    public List<Map<String, Object>> getRecommendedRandomCoursesForMultipleInputs(List<Map<String, String>> courses) {
+        String url = "http://localhost:5000/recommend/multiple/random";
+        RestTemplate restTemplate = new RestTemplate();
+
+        // 요청 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // HttpEntity 생성
+        HttpEntity<List<Map<String, String>>> requestEntity = new HttpEntity<>(courses, headers);
+
+        // Flask 서버에 POST 요청 전송
+        ResponseEntity<List> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                List.class
+        );
+
+        // 응답 반환
+        return response.getBody();
+    }
 }
