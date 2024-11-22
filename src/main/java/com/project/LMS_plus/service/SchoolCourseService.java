@@ -42,7 +42,7 @@ public class SchoolCourseService {
     }
 
     private static final String BASE_CSV_PATH =
-            "D:\\webproject\\RedPenLMS-BE\\src\\main\\resources\\csv";
+            "src/main/resources/csv";
 
     // CSV 파일 로드 메서드
     private Set<CourseDetailDTO> loadCourseFromFile(String filePath) {
