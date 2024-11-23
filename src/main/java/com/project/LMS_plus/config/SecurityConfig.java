@@ -4,6 +4,7 @@ import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,13 +22,14 @@ public class SecurityConfig {
 
     @Autowired
     private UserRepository userRepository; // UserService 대신 UserRepository 사용
-
+    @Value("${frontend.url}")
+    private String frontendUrl;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                    config.setAllowedOrigins(Arrays.asList(frontendUrl));
                     config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                     config.setAllowCredentials(true);
                     config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
