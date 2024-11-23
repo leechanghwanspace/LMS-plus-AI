@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class UserController {
 

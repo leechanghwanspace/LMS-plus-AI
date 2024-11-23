@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/boards")
-@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class BoardController {
 
