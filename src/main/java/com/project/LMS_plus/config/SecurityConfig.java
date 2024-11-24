@@ -2,7 +2,9 @@ package com.project.LMS_plus.config;
 
 import com.project.LMS_plus.entity.User;
 import com.project.LMS_plus.repository.UserRepository;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,15 +31,15 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Arrays.asList(frontendUrl));
-                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                    config.addAllowedOrigin("https://red-pen-lms-fe.vercel.app");
+                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowCredentials(true);
-                    config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+                    config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "ngrok-skip-browser-warning"));
                     return config;
                 }))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login", "/api/logout", "/api/signup").permitAll()
+                        .requestMatchers("/api/login", "/api/logout", "/api/signup","/api/session-check").permitAll()
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/courses/**").permitAll()
                         .anyRequest().authenticated()
@@ -55,6 +57,13 @@ public class SecurityConfig {
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setContentType("application/json");
                             response.setCharacterEncoding("utf-8");
+                            // 로그아웃 후 JSESSIONID 쿠키 삭제
+                            Cookie cookie = new Cookie("JSESSIONID", null);
+                            cookie.setHttpOnly(true);
+                            cookie.setSecure(true);
+                            cookie.setPath("/");
+                            cookie.setMaxAge(0);  // 쿠키 만료
+                            response.addCookie(cookie);
                             response.getWriter().write("{\"message\":\"로그아웃 성공\"}");
                         })
                         .invalidateHttpSession(true)
@@ -72,6 +81,7 @@ public class SecurityConfig {
                         .maximumSessions(1)
                 );
 
+
         return http.build();
     }
 
@@ -84,6 +94,17 @@ public class SecurityConfig {
         return (request, response, authentication) -> {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
+
+            // 세션 생성
+            String sessionId = request.getSession().getId();  // 세션 ID 가져오기
+
+            // JSESSIONID 쿠키 설정
+            Cookie cookie = new Cookie("JSESSIONID", sessionId);
+            cookie.setHttpOnly(true);  // 보안을 위해 HttpOnly 속성 추가
+            cookie.setSecure(true);    // HTTPS 환경에서만 쿠키 전송
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60); // 쿠키 유효 시간 설정 (1시간)
+            response.addCookie(cookie);  // 쿠키를 응답에 추가
 
             // studentId 추출
             String studentId = authentication.getName();
@@ -101,6 +122,7 @@ public class SecurityConfig {
                     studentId, user.getName(), (jobId == null ? "null" : "\"" + jobId + "\"")
             );
 
+            response.setHeader("Set-Cookie", "JSESSIONID=" + sessionId + "; Secure; HttpOnly; SameSite=None; Path=/; Max-Age=3600");
             // JSON 응답 전송
             response.getWriter().write(jsonResponse);
         };
