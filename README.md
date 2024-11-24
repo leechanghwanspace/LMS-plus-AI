@@ -32,3 +32,6 @@
 ### ERD Diagram
 ![img_1.png](ERD.png)
 
+
+---
+⛓️‍💥[LMS-Plus-AI](http://lmsplusai.kro.kr/)
