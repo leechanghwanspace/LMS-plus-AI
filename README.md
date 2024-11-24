@@ -23,12 +23,12 @@
 <br>
 
 ### Architecture
-![img_2.png](Architecture.png)
+![img.png](Architecture.png)
 
 
 ---
 <br>
 
 ### ERD Diagram
-![img_1.png](erd.png)
+![img_1.png](ERD.png)
 
