@@ -55,8 +55,9 @@
 <details>
   <summary>교과목 계획표(비교)</summary>
 
-![교과목 계획표](image/교과목 계획표 비교_사이트.png)
-![교과목 계획표](image/교과목 계획표 비교_학교용.png)
+![교과목 계획표](image/교과목-계획표-사이트.png)
+
+![교과목 계획표](image/교과목-계획표-학교용.png)
 
 </details>
 
