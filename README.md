@@ -20,17 +20,71 @@
 - 전공도서 **중고거래**
 
 ---
+### 웹 시현
+<details>
+  <summary>접속, 메인화면</summary>
+
+![접속화면](image/접속화면.png)
+![메인화면](image/메인화면.png)
+
+
+</details>
+
+<details>
+  <summary>회원가입 후 직무 설정에 따른 교과목 추천</summary>
+
+![회원가입](image/회원가입.png)
+![교과목 추천](image/초기-직무-설정-교과목-추천.gif)
+
+</details>
+
+<details>
+  <summary>추천 학과 설문</summary>
+
+![추천학과 설문](image/추천-학과-설문.gif)
+
+</details>
+
+<details>
+  <summary>교과목 선택</summary>
+
+![교과목 선택](image/과목선택.gif)
+
+</details>
+
+<details>
+  <summary>교과목 계획표(비교)</summary>
+
+![교과목 계획표](image/교과목 계획표 비교_사이트.png)
+![교과목 계획표](image/교과목 계획표 비교_학교용.png)
+
+</details>
+
+<details>
+  <summary>교과목에 따른 인프런 강의 추천</summary>
+
+![인프런강의 추천](image/교과목에-따른-인프런-강의-추천.gif)
+
+</details>
+
+<details>
+  <summary>마이페이지</summary>
+
+![인프런강의 추천](image/마이페이지.gif)
+
+</details>
+
+---
 <br>
 
 ### Architecture
-![img.png](Architecture.png)
-
+![img.png](image/Architecture.png)
 
 ---
 <br>
 
 ### ERD Diagram
-![img_1.png](ERD.png)
+![img_1.png](image/ERD.png)
 
 
 ---
